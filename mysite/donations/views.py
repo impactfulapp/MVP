@@ -14,8 +14,7 @@ from .forms import NewCardForm
 def index(request):
     card_list = Card.objects.all().order_by('-card_date')
     new_charity_name = ""
-    new_amount = ""
-    
+    new_amount = "" 
      
     if request.method == 'POST':
         form = NewCardForm(data=request.POST)
