@@ -1,0 +1,54 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'donations/style.css' %}" />
+
+<a href="../">
+<img src="{% static 'donations/images/logo.jpg' %}" style="position:absolute; top:1.5%; left:26%" width="127" height="29"/>
+</a>
+
+<div class="header"></div>
+    <div class="header_contents">
+        <a href="/donations/settings/">Your Profile</a>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <a href="/donations/logout">Logout</a>
+        </div>
+
+
+<div class="column"></div>
+
+ <h2>Hello {{user.username}}</h2>
+ <h1>Facebook</h1>
+  {% if facebook_login %}
+    <p>Connected as <a href="https://facebook.com/{{ facebook_login.extra_data.id }}/" target="_blank">{{ facebook_login.extra_data.id }}</a></p>
+<!--
+    {% if can_disconnect %}
+      <form method="post" action="{% url 'social:disconnect' 'facebook' %}">
+        {% csrf_token %}
+        <button type="submit">Disconnect from Facebook</button>
+      </form>
+    {% else %}
+      <button type="button" disabled>Disconnect from Facebook</button>
+      <p style="color: red">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Facebook.</p>
+    {% endif %}
+-->
+  {% else %}
+    <a href="{% url 'social:begin' 'facebook' %}">Connect to Facebook</a>
+  {% endif %}
+  
+<!--
+<h1>Twitter</h1>
+  {% if twitter_login %}
+    <p>Connected as <a href="https://twitter.com/{{ twitter_login.extra_data.access_token.screen_name }}/" target="_blank">@{{ twitter_login.extra_data.access_token.screen_name }}</a></p>
+    {% if can_disconnect %}
+      <form method="post" action="{% url 'social:disconnect' 'twitter' %}">
+        {% csrf_token %}
+        <button type="submit">Disconnect from Twitter</button>
+      </form>
+    {% else %}
+      <button type="button" disabled>Disconnect from Twitter</button>
+      <p style="color: red">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Twitter.</p>
+    {% endif %}
+  {% else %}
+    <a href="{% url 'social:begin' 'twitter' %}">Connect to Twitter</a>
+  {% endif %}
+-->
+ 
