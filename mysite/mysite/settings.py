@@ -81,6 +81,32 @@ AUTHENTICATION_BACKENDS = (
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
+# Social Authorization Keys
+
+SOCIAL_AUTH_TWITTER_KEY = 'yET3py5GJ1vGBLJ0QSax2qo7T'
+SOCIAL_AUTH_TWITTER_SECRET = '0UiyIRipax1TEeMMsaP3965rC7ySJ3oH0TcX8OoaZNgTdcm7ov'
+SOCIAL_AUTH_FACEBOOK_KEY = '1994789397476438'
+SOCIAL_AUTH_FACEBOOK_SECRET = '7c2c828ac8a71b6b1bb285291648003a'
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'index'
+
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/donations/settings/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/donations/connect_to_profile/'
+SOCIAL_AUTH_RAISE_EXCEPTIONS = False
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'social_core.pipeline.social_auth.associate_by_email',
+)
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases

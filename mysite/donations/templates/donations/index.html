@@ -1,42 +1,36 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'donations/style.css' %}" />
-
+<a href="/donations">
 <img src="{% static 'donations/images/logo.jpg' %}" style="position:absolute; top:1.5%; left:26%" width="127" height="29"/>
+</a>
 
-<!--
-<div class="line"></div>
-<div class="line2"></div>
-<div class="line3"></div>
-<div class="line4"></div>
--->
-
-<div class="header">
+<div class="header"></div>
     <div class="header_contents">
-        Your Profile
+        <a href="/donations/settings/">Your Profile</a>
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-        Logout
+        <a href="/donations/logout">Logout</a>
         </div>
-</div>
 
-
-<h1>Donation History</h1>
-
-<form action="" method="post">
-    {% csrf_token %}
-    <label for="new_charity">Charity Name: </label>
-    <input id="new_charity" type="text" name="new_charity" value="{{ new_charity }}">
-    <br>
-    <label for="new_amount">Donation Amount: </label>
-    <input id="new_amount" type="text" name="new_amount" value="{{ new_amount }}">
-    <br>
-    <label for="new_date">Date Donated: </label>
-    <input id="new_date" type="date" name="new_date" value="{{ new_date }}">    
-    <input type="submit" value="OK">
-</form>
-
+   <div class="form">
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="new_charity">Charity Name: </label>
+        <input id="new_charity" type="text" name="new_charity" value="{{ new_charity }}">
+        <br>
+        <label for="new_amount">Donation Amount: </label>
+        <input id="new_amount" type="text" name="new_amount" value="{{ new_amount }}">
+        <br>
+        <label for="new_date">Date Donated: </label>
+        <input id="new_date" type="date" name="new_date" value="{{ new_date }}">    
+        <input type="submit" value="OK">
+    </form>
+    </div>
+    
 <div class="column">
-<br><br><br><br><br><br><br>
-{% if card_list %}
+    <h1>Donation History</h1>
+ 
+    <div class="cards">
+    {% if card_list %}
     {% for card in card_list %}
         <li>
             <div class="card">
@@ -47,11 +41,10 @@
                     {{card.card_donation.donation_date}}
                 </div>
             </div>
-            <br><br><br>
         </li>
     {% endfor %}
-{% endif %}
-<br>
+    {% endif %}
+    </div>
 </div>
 
 <div class="footer">

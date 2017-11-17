@@ -17,8 +17,6 @@ body {
     left: 25%;
     top: 9%;
     background: white;
-    overflow: scroll;
-    padding-bottom: 50px;
     z-index: -2;
 }
 
@@ -39,13 +37,36 @@ body {
     font-family: proxima-nova, sans-serif;
     font-size: 18px;
     font-weight: 100;
-    padding-top: 14px;
+    padding-top: 5px;
     padding-right: 26%;
 }
 
+a:link {
+   color: #0b5394;
+   text-decoration: none;
+}
+
+
+a:visited {
+   color: #0b5394;
+   text-decoration: none;
+}
+
+a:hover {
+   color: #0b5394;
+   text-decoration: none;
+}
+
+a:active {
+   color: #0b5394;
+   text-decoration: none;
+}
+
+
+
 .footer {
     width: 50%;
-    height: 11%;
+    height: 7%;
     position: fixed;
     left: 25%;
     bottom: 0%;
@@ -60,6 +81,7 @@ body {
     font-family: proxima-nova, sans-serif;
     font-size: 28px;
     font-weight: 100;
+    padding-top: 11px;
 }
 
 h1 {
@@ -68,18 +90,35 @@ h1 {
     font-family: proxima-nova, sans-serif;
     font-size: 36px;
     font-weight: 100;
-    padding-top: 80px;
+}
+
+h2 {
+    color: #0b5394;
+    text-align: center;
+    font-family: proxima-nova, sans-serif;
+    font-size: 36px;
+    font-weight: 100;
+    padding-top: 30px;
+}
+
+.form {
+    padding-top: 115px;
+}
+
+.cards {
+    padding-top: 95px;
+    list-style: none;
 }
 
 .card {
     width: 85%;
-    height: 15%;
+    height: 14%;
     position: absolute;
     left: 7.5%;
     background: lightgrey;
     border: solid;
     border-color: white;
-    border-weight: 4px;
+    border-width: 4px;
     z-index: -1;
 }
 
@@ -92,13 +131,9 @@ h1 {
 }
 
 
-li a {
-   color: #6aa84f;
-}
-
 li {
     list-style: none;
-    padding-bottom: 5%;
+    padding-bottom: 125;
 }
 
 
