@@ -1,4 +1,14 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'donations/style.css' %}" />
-<img src="{% static 'donations/images/logo.jpg' %}" style="position:absolute; top:22%; left:28%" width="592" height="136"/>
+<link rel="stylesheet" type="text/css" href="{% static 'donations/login_style.css' %}" />
+<img src="{% static 'donations/images/logo.jpg' %}" style="position:absolute; top:19%; left:25%" width="710" height="163"/>
 
+<br>
+<!--
+<a href="{% url 'social:begin' 'twitter' %}">
+    <img src="{% static 'donations/images/twitter2.png' %}" style="position:absolute; top:52%; left:38%" width="296" height="68"/>
+</a>
+-->
+<a href="{% url 'social:begin' 'facebook' %}">
+    <img src="{% static 'donations/images/facebook2.png' %}" style="position:absolute; top:42%; left:38%" width="296" height="68"/>
+</a>
+ 
