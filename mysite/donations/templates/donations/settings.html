@@ -13,42 +13,35 @@
         </div>
 
 
-<div class="column"></div>
+<div class="column">
 
- <h2>Hello {{user.username}}</h2>
- <h1>Facebook</h1>
-  {% if facebook_login %}
+{% with user.profile.avatar.name|cut:'donations/static/' as avatarstatic %}
+    <img src = "{% static avatarstatic %}" style="position:absolute; top:4%; left:5%" width="30%" height="28%"/>   
+{% endwith %}
+
+<div class="settingsbox">
+    <div class="settingsname">{{user.get_full_name}}</div>
+    <div class="settingsinfo">
+        Email: {{ user.email }} <br>
+        Phone Number: {{ user.profile.phone }} <br>
+        Date of Birth: {{ user.profile.birthday }} <br>
+        Location: {{ user.profile.location }}<br>
+    </div>
+</div>
+
+<!--
     <p>Connected as <a href="https://facebook.com/{{ facebook_login.extra_data.id }}/" target="_blank">{{ facebook_login.extra_data.id }}</a></p>
-<!--
-    {% if can_disconnect %}
-      <form method="post" action="{% url 'social:disconnect' 'facebook' %}">
-        {% csrf_token %}
-        <button type="submit">Disconnect from Facebook</button>
-      </form>
-    {% else %}
-      <button type="button" disabled>Disconnect from Facebook</button>
-      <p style="color: red">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Facebook.</p>
-    {% endif %}
--->
-  {% else %}
-    <a href="{% url 'social:begin' 'facebook' %}">Connect to Facebook</a>
-  {% endif %}
-  
-<!--
-<h1>Twitter</h1>
-  {% if twitter_login %}
+{{user.profile.avatar}}
+fb_avatar_10213914020542602.jpg
+
+{% if twitter_login %}
+    <h1>Twitter</h1>
     <p>Connected as <a href="https://twitter.com/{{ twitter_login.extra_data.access_token.screen_name }}/" target="_blank">@{{ twitter_login.extra_data.access_token.screen_name }}</a></p>
-    {% if can_disconnect %}
-      <form method="post" action="{% url 'social:disconnect' 'twitter' %}">
-        {% csrf_token %}
-        <button type="submit">Disconnect from Twitter</button>
-      </form>
-    {% else %}
-      <button type="button" disabled>Disconnect from Twitter</button>
-      <p style="color: red">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Twitter.</p>
-    {% endif %}
-  {% else %}
-    <a href="{% url 'social:begin' 'twitter' %}">Connect to Twitter</a>
-  {% endif %}
+{% endif %}
+{% if google_login %}
+    <h1>Google</h1>
+    <p>Connected as <a href="https://google.com/{{ google_login.extra_data.access_token.id }}/" target="_blank">{{ google_login.extra_data.access_token.screen_name }}</a></p>
+{% endif %}
 -->
- 
+</div>
+

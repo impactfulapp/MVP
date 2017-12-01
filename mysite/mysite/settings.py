@@ -74,27 +74,48 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-	'social_core.backends.twitter.TwitterOAuth',
+	#'social_core.backends.twitter.TwitterOAuth',
 	'social_core.backends.facebook.FacebookOAuth2',
+        #'social_core.backends.google.GoogleOAuth2',
 	'django.contrib.auth.backends.ModelBackend',
 )
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
+AUTH_PROFILE_MODULE = 'donations.Profile'
+
 # Social Authorization Keys
 
-SOCIAL_AUTH_TWITTER_KEY = 'yET3py5GJ1vGBLJ0QSax2qo7T'
-SOCIAL_AUTH_TWITTER_SECRET = '0UiyIRipax1TEeMMsaP3965rC7ySJ3oH0TcX8OoaZNgTdcm7ov'
+#SOCIAL_AUTH_TWITTER_KEY = 'yET3py5GJ1vGBLJ0QSax2qo7T'
+#SOCIAL_AUTH_TWITTER_SECRET = '0UiyIRipax1TEeMMsaP3965rC7ySJ3oH0TcX8OoaZNgTdcm7ov'
 SOCIAL_AUTH_FACEBOOK_KEY = '1994789397476438'
 SOCIAL_AUTH_FACEBOOK_SECRET = '7c2c828ac8a71b6b1bb285291648003a'
+#SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '384425961651-hojg1n8u23vlkrsv6eomu2cusndeqhod.apps.googleusercontent.com'
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'HSFa-jn9_s8CID8LZiYODcwq'
 
 LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
+LOGOUT_URL = 'index'
 LOGIN_REDIRECT_URL = 'index'
 
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/donations/settings/'
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/donations/connect_to_profile/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/donations/' #connect_to_profile/'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = False
+
+#SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+#'https://www.googleapis.com/auth/userinfo.email',
+#'https://www.googleapis.com/auth/userinfo.profile'
+#]
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = [
+    'email',
+    'public_profile',
+    'user_birthday',
+    'user_location'
+]
+
+#SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
+#SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
@@ -106,6 +127,8 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
     'social_core.pipeline.social_auth.associate_by_email',
+    'donations.pipeline.connect_to_profile',
+    'donations.pipeline.update_user_social_data',
 )
 
 # Database

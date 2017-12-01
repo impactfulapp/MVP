@@ -50,43 +50,32 @@ def detail(request, donation_id):
 def login(request):
     return render(request, 'donations/login.html')
 
-def connect_to_profile(request):
-    profile_list = Profile.objects.all()
-    for profile in profile_list:
-        if profile.user.username == request.user.username:
-            return HttpResponseRedirect('/donations/')
-    new_profile = Profile(user=request.user, email='', phone='')
-    new_profile.save()
-    return HttpResponseRedirect('/donations/')
-
-#def logout(request):
-#    return HttpResponse("Logout screen")
 
 @login_required
 def settings(request):
     user = request.user
 
-#    try:
-#        twitter_login = user.social_auth.get(provider='twitter')
-#    except UserSocialAuth.DoesNotExist:
-#        twitter_login = None
-
     try:
         facebook_login = user.social_auth.get(provider='facebook')
     except UserSocialAuth.DoesNotExist:
         facebook_login = None
-    
-#    try:
-#            user = User.objects.get(username=facebook_login.extra_data.id)
-#        except User.DoesNotExist:
-#            profile = Profile(user=user, email="", phone="")
+    """
+    try:
+        twitter_login = user.social_auth.get(provider='twitter')
+    except UserSocialAuth.DoesNotExist:
+        twitter_login = None
 
-#    can_disconnect = (user.social_auth.count() > 1 or user.has_usable_password())
+    try:
+        google_login = user.social_auth.get(provider='google-oauth2')
+    except UserSocialAuth.DoesNotExist:
+        google_login = None
+    """
 
     return render(request, 'donations/settings.html', {
-#        'twitter_login': twitter_login,
-        'facebook_login': facebook_login
-#        'can_disconnect': can_disconnect
+        'facebook_login': facebook_login,
+        #'twitter_login': twitter_login,
+        #'google_login': google_login
+        #'can_disconnect': can_disconnect
         })
 
 @login_required

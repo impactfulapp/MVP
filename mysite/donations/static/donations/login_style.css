@@ -2,10 +2,11 @@ html {
     background-color: white;
 }
 
-body {
+.welcome {
     color: #0b5394;
     text-align: center;
     font-family: proxima-nova, sans-serif;
     font-size: 24px;
-    font-weight: 100;
+    font-weight: normal;
+    padding-top: 315;
 }
