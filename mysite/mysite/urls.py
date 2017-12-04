@@ -23,5 +23,5 @@ urlpatterns = [
 
 
 LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
+LOGOUT_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
