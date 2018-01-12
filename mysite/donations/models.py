@@ -7,6 +7,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import datetime
 
+from django.core.serializers.json import DjangoJSONEncoder
+
+
 # Create your models here.
 
 class Profile(models.Model):
@@ -19,19 +22,38 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+class CharityManager(models.Manager):
+    def get_by_natural_key(self, charity_name, charity_cause, charity_tagline, charity_rating):
+        return self.get(charity_name=charity_name, charity_cause=charity_cause, charity_tagline=charity_tagline, charity_rating=charity_rating)
+
+class DonationManager(models.Manager):
+    def get_by_natural_key(self, donation_charity, donation_amount, donation_date, donation_donor):
+        return self.get(donation_charity=donation_charity, donation_amount=donation_amount, donation_date=donation_date, donation_donor=donation_donor)
+
 class Charity(models.Model):
+    objects = CharityManager()
     charity_name = models.CharField(max_length=200, null='TRUE')
-    #charity_tag_1 = models.CharField(max_length=200)
+    charity_cause = models.CharField(max_length=200, null='TRUE')
+    charity_rating = models.IntegerField(default=0, null='TRUE')
+    charity_tagline = models.CharField(max_length=200, null='TRUE')
+
+    def natural_key(self):
+        return (self.charity_name, self.charity_cause, self.charity_tagline, self.charity_rating)
+
     def __str__(self):
         return self.charity_name
 
 class Donation(models.Model):
+    objects = DonationManager()
     donation_charity = models.ForeignKey(Charity, on_delete=models.CASCADE, null='TRUE')
     donation_amount = models.IntegerField(default=0, null='TRUE')
     donation_date = models.DateField(default=datetime.date.today)
     #donation_impact = models.CharField(max_length=200)
-    donation_donor = models.ForeignKey(Profile, on_delete=models.CASCADE, null='TRUE')
-    #use donation_donor.donation_set.objects.all() for user's list of donations
+    donation_donor = models.ForeignKey(User, on_delete=models.CASCADE, null='TRUE')
+
+    def natural_key(self):
+        return (self.donation_amount, self.donation_date)
+
     def __str__(self):
         return "Donation to " + self.donation_charity.charity_name
 
@@ -42,3 +64,10 @@ class Card(models.Model):
     card_user = models.ForeignKey(User, null='TRUE')
     def __str__(self):
         return "Card for " + self.card_charity.charity_name
+
+
+
+
+
+
+

@@ -1,0 +1,278 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+    <title>Impactful MVP</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'donations/style2.css' %}" />
+    <script>
+        $(document).ready( function() {
+            $( "#new_charity" ).autocomplete({
+                source: function(request, response) {
+                    $.ajax( {
+                        url: 'ajax/get_charities',
+                        dataType: 'json',
+                        data: { term: request.term },
+                        success: function(data) {
+                            response(data.charities);
+                            }
+                        } );
+                    },
+                messages: {
+                    noResults: '',
+                    results: function() {}
+                },
+                minLength: 2
+            } );
+            
+            $('body').on('click', '.delete_button', function() {
+                var donation_id = $(this).attr('id')
+                $.ajax( {
+                    url: 'delete_update/' + donation_id,
+                    dataType: 'json',
+                    success: function(data) {
+                        $(".card#" + donation_id).hide("slow", function(){ $(".card#" + donation_id).remove(); });
+                        $(".total").text(data.total.toString());
+                    }
+                });
+            });
+
+            function openModal() {
+                called_by_id = $(this).attr('id');
+                console.log(called_by_id)
+                $('#addModal').modal('show');
+                if(called_by_id != 'add_button_card') {
+                    var charity_name = $.trim($('#'+called_by_id+' .charity_name').text());
+                    var donation_amount = parseInt($.trim($('#'+called_by_id+' .donation_amount').text()));
+                    var donation_date = new Date(Date.parse($.trim($('#'+called_by_id+' .donation_date').text()))).toISOString().slice(0,10);
+                    $("#new_charity").val(charity_name);
+                    $("#new_amount").val(donation_amount);
+                    $("#new_date").val(donation_date);
+                    $('body').on('click', '.save_donation', function() {
+                        $.ajax( {
+                            url: 'add_form/' + called_by_id,
+                            dataType: 'json',
+                            data: {charity: $('#new_charity').val(), amount: $('#new_amount').val(), date: $('#new_date').val()},
+                            success: function(data) {
+                                console.log(data)
+                                /*edit this card with card details from data*/
+                                $('#'+called_by_id+' .charity_name').text(data.charity);
+                                $('#'+called_by_id+' .tagline').text(data.tagline);
+                                $('#'+called_by_id+' .cause').text(data.cause);
+                                $('#'+called_by_id+' .rating').text(data.rating);
+                                $('#'+called_by_id+' .donation_amount').text(data.amount);
+                                $('#'+called_by_id+' .donation_date').text(data.date);
+                                $('#addModal').modal('hide');
+                            }
+                        })
+                    })
+                }
+                else 
+                {
+                    //$("#new_charity").val('Find your charity or enter your own');
+                    $("#new_charity").attr('placeholder', 'Find your charity or enter your own').blur();
+                    $("#new_amount").val('Enter amount in USD');
+                    $("#new_date").val('MM/DD/YYYY');
+                    $('body').on('click', '.save_donation', function() {
+                        $.ajax( {
+                            url: 'add_form/0',
+                            dataType: 'json',
+                            data: {charity: $('#new_charity').val(), amount: $('#new_amount').val(), date: $('#new_date').val()},
+                            success: function() {
+                                $('#addModal').modal('hide');
+                                location.reload();
+                            }
+                        })
+                    })
+                }
+            }
+
+            $('.card').click(openModal);
+    
+        });
+    </script>
+  </head>
+  <body>
+    <div class="container-fluid" id="header">
+        <div class="row">
+            <div class="col">
+                <a href="../donations">
+                    <img src="{% static 'donations/images/logo.jpg' %}" style="width="127" height="29"/>
+                </a>
+            </div>
+            <div class="col">
+                <div class="links">
+                    <a href="/donations/logout/">Logout</a>
+                </div>
+                <div class="links">
+                    <a href="/donations/settings/">Your Profile</a>
+                </div>
+                <div class="links">
+                    <a href="/donations/">Your History</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row" id="form_row">
+            <div class="col"></div>
+            <div class="col-6">
+                <div class="text-center">
+                    <div class="title">
+                        <h2>Donation History</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+
+        <div class="modal fade modal_text" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title bold" id="addModalLabel">Donation Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- <form action="" method="post"> -->
+                            <div class="form-group">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-4 text-right">
+                                        <label for="new_charity">Charity Name</label>
+                                    </div>
+                                    <div class="col form-input-box">
+                                        <input class="form-inputs" id="new_charity" type="text" name="new_charity" value="{{ new_charity }}" placeholder="Find your charity or enter your own">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 text-right">
+                                        <label for="new_amount">Donation Amount</label>
+                                    </div>
+                                    <div class="col form-input-box">
+                                        <div class="dollar_sign">
+                                            $
+                                        </div>
+                                        <input class="form-inputs amount-input" id="new_amount" type="number" name="new_amount" value="{{ new_amount }}" placeholder="Enter amount in USD">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 text-right">
+                                        <label for="new_date">Date Donated</label>
+                                    </div>
+                                    <div class="col form-input-box">
+                                        <input class="form-inputs form-date" id="new_date" type="date" name="new_date" value="{{ new_date }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            <input type="submit" class="btn btn-secondary modal_close_button save_donation" value="Save">
+                        <!-- </form> -->
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" id="list_row">
+            <div class="col"></div>
+            <div class="col-6 column">
+                <div class="text-center">
+                   <div class="container card add_card_format" id="add_button_card">
+                        <div class="row align-items-center">
+                            <div class="col text-center">
+                                <div class="row">
+                                    <div class="col add_card text-center">
+                                        +
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col add_card text-center detail">
+                                        Add New Donation
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                   </div>
+                   {% if donation_list %}
+                   {% for donation in donation_list %}
+                       <div class="container card" id="{{donation.id}}">
+                            <div class="row text-right">
+                                <div class="col">
+                                    <span class="delete_button" id="{{donation.id}}">X</span>
+                                </div>
+                            </div>
+                            <div class="row card_text">
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col main_info charity_name">
+                                            {{donation.donation_charity.charity_name}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col detail tagline">
+                                            "{{donation.donation_charity.charity_tagline}}"
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col detail cause">
+                                            Cause: {{donation.donation_charity.charity_cause}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col detail">
+                                            Impact: Coming Soon
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col main_info">
+                                            $<span class="donation_amount">{{donation.donation_amount}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col detail donation_date">
+                                            {{donation.donation_date}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col detail rating">
+                                            Rating: {{donation.donation_charity.charity_rating}} 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                   {% endfor %}
+                   {% endif %}
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+    <div class="container-fluid" id="footer">
+        <div class="text-center">
+            <h2>Total Donations: $<span class="total">{{total_donations}}</span></h2>
+        </div>
+    </div>
+  </body>
+</html>

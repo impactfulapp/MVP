@@ -1,8 +1,48 @@
 {% load static %}
+
+<head>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <script>
+  $(document).ready( function() {
+    $( "#new_charity" ).autocomplete({
+        source: function(request, response) {
+            $.ajax( {
+                url: 'ajax/get_charities',
+                dataType: 'json',
+                data: { term: request.term },
+                success: function(data) {
+                    response(data.charities);
+                    }
+                } );
+            },
+        messages: {
+            noResults: '',
+            results: function() {}
+        },
+        minLength: 2
+        } );
+    
+        $('body').on('click', '.delete_button', function() {
+            console.log("clicked!");
+            var donation_id = str($(this).attr('id'))
+            $.ajax( {
+                url: 'delete/' + donation_id,
+                success: function() {
+                    $(".card#" + donation_id).delete();
+            }
+        });
+    });
+ });
+  </script>
+</head>
+
 <link rel="stylesheet" type="text/css" href="{% static 'donations/style.css' %}" />
 <a href="/donations">
 <img src="{% static 'donations/images/logo.jpg' %}" style="position:absolute; top:1.5%; left:26%" width="127" height="29"/>
 </a>
+
+
 
 <div class="header"></div>
     <div class="header_contents">
@@ -32,16 +72,34 @@
     <div class="cards">
     {% if card_list %}
     {% for card in card_list %}
-        <li>
-            <div class="card">
-                <div class="card_contents">
-                    <br>
-                    {{card.card_charity.charity_name}} ${{card.card_donation.donation_amount}}
-                    <br>
-                    {{card.card_donation.donation_date}}
+       
+            <div class="card" id={{card.card_donation.id}}>
+                <div class="card_left_box">
+                    <div class="card_large">
+                        {{card.card_charity.charity_name}} <br>
+                    </div>
+                    <div class="card_small">
+                        "{{card.card_charity.charity_tagline}}"
+                        <br>
+                        Cause: {{card.card_charity.charity_cause}}
+                        <br>
+                        Impact: Coming Soon
+                    </div>
                 </div>
+                <div class="card_right_box">
+                    <div class="card_large">
+                        ${{card.card_donation.donation_amount}}
+                        <br>
+                    </div>
+                    <div class="card_small">
+                        {{card.card_donation.donation_date}}
+                        Rating: {{card.card_charity.charity_rating}}                       
+                    </div>
+                </div>
+                <div class="delete_button" id={{card.card_donation.id}}>X</div>
             </div>
-        </li>
+
+   
     {% endfor %}
     {% endif %}
     </div>
@@ -49,7 +107,7 @@
 
 <div class="footer">
     <div class="footer_contents">
-        Total Donations:
+        Total Donations: ${{total_donations}}
     </div>
 </div>
 
