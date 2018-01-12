@@ -2,24 +2,6 @@ html {
     background-color: #0b5394;
 }
 
-body {
-    color: #0b5394;
-    font-family: proxima-nova, sans-serif;
-    font-size: 24px;
-    font-weight: 100;
-}
-
-.column {
-    width: 50%;
-    min-height: 100%;
-    position: absolute;
-    left: 25%;
-    top: 9%;
-    background: white;
-    z-index: -2;
-}
-
-
 .header {
     width: 100%;
     height: 6%;
@@ -40,28 +22,175 @@ body {
     padding-right: 26%;
 }
 
-a:link {
-   color: #0b5394;
-   text-decoration: none;
+
+body {
+    color: #0b5394;
+    font-family: proxima-nova, sans-serif;
+    font-size: 14px;
+    font-weight: 100;
+    
+    -webkit-padding-start: 5px;
+}
+
+h1 {
+    color: #0b5394;
+    text-align: center;
+    font-family: proxima-nova, sans-serif;
+    font-size: 36px;
+    font-weight: 100;
+}
+
+h2 {
+    color: #0b5394;
+    text-align: center;
+    font-family: proxima-nova, sans-serif;
+    font-size: 36px;
+    font-weight: 100;
+    padding-top: 30px;
+}
+
+label {
+    color: #0b5394;
+    font-family: proxima-nova, sans-serif;
+    font-size: 24px;
+    font-weight: 100;
+}
+
+li {
+    list-style: none;
+    color: #0b5394;
+    font-family: proxima-nova, sans-serif;
+    font-size: 14px;
+    font-weight: 100;  
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+}
+
+.ui-helper-hidden-accessible {
+    width: 100px;
+}
+
+.ui-tooltip {
+    background: #4a4a4a;
+    color: #96f226;
+    border: 2px solid #454545;
+    border-radius: 0px;
+    box-shadow: 0 0
+}
+
+.ui-autocomplete {
+    background: white;
+    border-radius: 2px;
+    width: 300px;
+    
+}
+
+.ui-front {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #0b5394;
+}
+
+.ui-menu-item-wrapper {
+    color: #0b5394;
+    background: white;
+    padding: 10px;
+    
+}
+
+.ui-menu-item-wrapper:hover {
+    background: lightgrey;
+    color: #0b5394
+}
+
+.column {
+    width: 50%;
+    min-height: 100%;
+    position: absolute;
+    left: 25%;
+    top: 9%;
+    background: white;
+    z-index: -2;
 }
 
 
-a:visited {
-   color: #0b5394;
-   text-decoration: none;
+.form {
+    padding-top: 115px;
+    text-align: center;
 }
 
-a:hover {
-   color: #0b5394;
-   text-decoration: none;
+.cards {
+    padding-top: 95px;
+    padding-bottom: 62px;
+    list-style: none;
 }
 
-a:active {
-   color: #0b5394;
-   text-decoration: none;
+.card {
+    width: 85%;
+    height: 110px;
+    left: 7.5%;
+    background: lightgrey;
+    border: solid;
+    border-color: white;
+    border-width: 4px;
+    z-index: -1;
+}
+
+.card_left_box {
+    position: absolute;
+    left: 1%;
+    top: 4%;
+    width: 80%;
+    height: 96%;
+}
+
+.card_right_box {
+    position: absolute;
+    left: 81%;
+    top: 15%;
+    width: 18%;
+    height: 96%;
+}
+
+.card_large {
+    color: #0b5394;
+    text-align: center;
+    font-family: proxima-nova, sans-serif;
+    font-size: 24px;
+    font-weight: 100;
+    padding-top: 3%;
+}
+
+.card_small {
+    color: #0b5394;
+    text-align: center;
+    font-family: proxima-nova, sans-serif;
+    font-size: 14px;
+    font-weight: 100;
 }
 
 
+.card_list {
+    list-style: none;
+    padding-bottom: 125;
+}
+
+.delete_button {
+    background: lightgrey;
+    color: #0b5394;
+    font-size: 14px;
+    height: 14px;
+    width: 14px;
+}
+
+.delete_button:hover {
+    background: #0b5394;
+    color: lightgrey;
+}
 
 .footer {
     width: 50%;
@@ -81,23 +210,6 @@ a:active {
     font-size: 28px;
     font-weight: 100;
     padding-top: 11px;
-}
-
-h1 {
-    color: #0b5394;
-    text-align: center;
-    font-family: proxima-nova, sans-serif;
-    font-size: 36px;
-    font-weight: 100;
-}
-
-h2 {
-    color: #0b5394;
-    text-align: center;
-    font-family: proxima-nova, sans-serif;
-    font-size: 36px;
-    font-weight: 100;
-    padding-top: 30px;
 }
 
 .settingsbox {
@@ -123,88 +235,4 @@ h2 {
     font-weight: 100;
 }
 
-.form {
-    padding-top: 115px;
-    text-align: center;
-}
 
-.cards {
-    padding-top: 95px;
-    list-style: none;
-}
-
-.card {
-    width: 85%;
-    height: 14%;
-    position: absolute;
-    left: 7.5%;
-    background: lightgrey;
-    border: solid;
-    border-color: white;
-    border-width: 4px;
-    z-index: -1;
-}
-
-.card_contents {
-    color: #0b5394;
-    text-align: center;
-    font-family: proxima-nova, sans-serif;
-    font-size: 24px;
-    font-weight: 100;
-}
-
-
-li {
-    list-style: none;
-    padding-bottom: 125;
-}
-
-
-<!-- not used anymore -->
-
-.background {
-   width: 100%;
-   height: 100%;
-   position: absolute;
-   left: 0%;
-   top: 0%;
-   background: #0b5394;
-   z-index: -3;
-}
-
-.line {
-    width: 1500px;
-    height: 1px;
-    border-top: 1px solid gray;
-    position: absolute;
-    left: 0%;
-    top: 9%;
-}
-
-.line2 {
-    width: 1px;
-    height: 60px;
-    border-left: 1px solid gray;
-    position: absolute;
-    left: 19%;
-    top: 1.5%;
-}
-
-.line3 {
-    width: 1px;
-    height: 60px;
-    border-left: 1px solid gray;
-    position: absolute;
-    left: 720px;
-    top: 10px;
-}
-
-.line4 {
-    width: 1px;
-    height: 60px;
-    border-left: 1px solid gray;
-    position: absolute;
-    left: 950px;
-    top: 10px;
-}
-    

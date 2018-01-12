@@ -1,0 +1,220 @@
+#header {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid black
+
+}
+
+#header .links {
+    padding-top: 2px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #0b5394;
+    font-family: proxima-nova, sans-serif;
+    display:inline;
+    float:right;
+}
+
+#header .links:hover {
+    padding-top: 2px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #0b5394;
+    font-family: proxima-nova, sans-serif;
+    display:inline;
+    float:right;
+}
+
+body {
+    color: #0b5394;
+    font-family: proxima-nova, sans-serif;
+
+}
+.title{
+    padding-top: 4px;
+}
+
+.modal_buttons {
+    color: lightgrey;
+    background: #0b5394;
+    margin-bottom: 5px;
+}
+
+.modal_buttons:hover {
+    color: #0b5394;
+    background: lightgrey;
+    margin-bottom: 5px;
+}
+
+.modal_close_button {
+    color: #0b5394;
+    background: lightgrey;
+    margin-bottom: 5px;
+}
+
+.modal_close_button:hover {
+    color: lightgrey;
+    background: #0b5394;
+    margin-bottom: 5px;
+}
+
+.add_card_button {
+    background-color: Transparent;
+    border: none;
+    outline:none;
+    color: #0b5394;
+    font-family: proxima-nova, sans-serif;
+    padding: 0px 20px 10px 20px;
+}
+
+.card:hover {
+    background: lightgrey;
+}
+
+.form-inputs {
+    float:left;
+    width:100%;
+    color: #6C9F47;
+    font-family: proxima-nova, sans-serif;
+    outline: 0;
+    border-style: none;
+}
+
+.form-input-box {
+    float:left;
+    border-style: hidden hidden solid hidden;
+    border-color: #0b5394;
+    border-width: 1px;
+    margin-bottom: 5px;
+    margin-right: 30px;
+    margin-left: 10px;
+    padding-left: 5px;
+}
+
+.amount-input {
+    width: 95%;
+}
+
+.dollar_sign {
+    float: left;
+    padding-right: 2px;
+    padding-top: 1px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.modal_text {
+    font-family: proxima-nova, sans-serif;
+}
+
+/*
+.flex {
+    display: flex;
+    justify-content: flex-start;
+}
+.flex input {
+    max-width: 300px;
+    flex: 1 1 300px;
+}
+.flex .currency {
+    
+}
+*/
+::placeholder {
+    color: #6C9F47;
+}
+
+
+.ui-helper-hidden-accessible {
+    display: none!important;
+}
+
+.ui-autocomplete {
+    background: white;
+    list-style: none;
+    border-radius: 2px;
+    width: 300px;
+    padding-left: 2px;
+    z-index: 1100;
+}
+
+.ui-front {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #0b5394;
+}
+
+.ui-menu-item-wrapper {
+    color: #6C9F47;
+    background: white;
+    padding: 10px;
+    
+}
+
+.ui-menu-item-wrapper:hover {
+    background: lightgrey;
+    color: #0b5394;
+    cursor: pointer;
+}
+
+.add_button {
+    padding-top: 10px;
+    color: #0b5394;
+    font-family: proxima-nova, sans-serif;
+}
+
+.form-group input[type="submit"] {
+    color: #0b5394;
+    font-family: proxima-nova, sans-serif;
+}
+
+.column {
+    padding-bottom: 61px;
+}
+
+.card {
+    border-style: solid;
+    border-color: #0b5394;
+    border-width: 2px;
+    margin-bottom: 10px;
+}
+
+.card_text {
+    padding-bottom: 20px;
+}
+
+.add_card {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.main_info {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.detail {
+    font-size: 12px;
+    color: #6C9F47
+}
+
+.delete_button {
+    cursor: pointer;
+}
+
+#footer {
+    position: fixed;
+    bottom:0;
+    height: 60px;
+    background: white;
+    padding-top: 10px;
+    font-size: 24px;
+    border-top: 2px solid black;
+}
+
+
+
+

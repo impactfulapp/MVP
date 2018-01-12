@@ -23,5 +23,12 @@ urlpatterns = [
     # settings pages
     url(r'^settings/$', views.settings, name='settings'),
     url(r'^settings/password/$', views.password, name='password'),
+    # populate charity list for autocomplete
+    url(r'^ajax/get_charities/$', views.get_charities, name='get_charities'),
+    # delete donation
+    url(r'^delete_update/(?P<donation_id>\d+)/$',views.delete_update, name='delete_update'),
+    # add or update donation
+    url(r'^add_form/(?P<donation_id>\d+)/$', views.add_form, name='add_form'),
+
 ]
 
