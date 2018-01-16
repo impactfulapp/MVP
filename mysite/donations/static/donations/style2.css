@@ -205,6 +205,14 @@ body {
     cursor: pointer;
 }
 
+.delete_col {
+    padding-right: 5px;
+    padding-left: 0px;
+    /*border-style: none none solid solid;
+    border-color: #0b5394;
+    border-width: 2px;*/
+}
+
 #footer {
     position: fixed;
     bottom:0;

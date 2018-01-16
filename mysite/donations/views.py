@@ -99,7 +99,8 @@ def add_form(request, donation_id):
         # card_to_update.card_date = date_to_add
         # card_to_update.save()
 
-        data = {'charity': donation_to_update.donation_charity.charity_name, 'amount': donation_to_update.donation_amount, 'date':donation_to_update.donation_date, 'cause': donation_to_update.donation_charity.charity_cause, 'tagline': donation_to_update.donation_charity.charity_tagline} 
+        new_total = get_total_donated(request.user)
+        data = {'new_total': new_total, 'charity': donation_to_update.donation_charity.charity_name, 'amount': donation_to_update.donation_amount, 'date':donation_to_update.donation_date, 'cause': donation_to_update.donation_charity.charity_cause, 'tagline': donation_to_update.donation_charity.charity_tagline} 
         #serialize('json', card_to_update_queryset.first(), use_natural_foreign_keys=True, use_natural_primary_keys=True)
         #pprint.pprint(data)
         return JsonResponse(data)
@@ -157,7 +158,7 @@ def detail(request, donation_id):
 def delete_update(request, donation_id):
     donation_delete = get_object_or_404(Donation, pk=donation_id).delete()
     total_donations = get_total_donated(request.user)
-    data = { 'total': total_donations}
+    data = { 'total': total_donations }
     return JsonResponse(data)
 
 #@login_required
