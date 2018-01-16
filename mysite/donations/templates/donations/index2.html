@@ -41,19 +41,25 @@
             
             $('body').on('click', '.delete_button', function() {
                 var donation_id = $(this).attr('id')
-                $.ajax( {
-                    url: 'delete_update/' + donation_id,
-                    dataType: 'json',
-                    success: function(data) {
-                        $(".card#" + donation_id).hide("slow", function(){ $(".card#" + donation_id).remove(); });
-                        $(".total").text(data.total.toString());
-                    }
-                });
+                //$('#deleteModal').modal('show');
+                //$('body').on('click', '.delete_donation', function() {
+                    $.ajax( {
+                        url: 'delete_update/' + donation_id,
+                        dataType: 'json',
+                        success: function(data) {
+                            $(".card#" + donation_id).hide("slow", function(){ $(".card#" + donation_id).remove(); });
+                            $(".total").text(data.total.toString());
+                            //$('#deleteModal').modal('hide');
+                        }
+                    });
+                //});
             });
 
             function openModal() {
                 called_by_id = $(this).attr('id');
                 console.log(called_by_id)
+                called_by_class = $(this).attr('class');
+                console.log(called_by_class)
                 $('#addModal').modal('show');
                 if(called_by_id != 'add_button_card') {
                     var charity_name = $.trim($('#'+called_by_id+' .charity_name').text());
@@ -76,6 +82,7 @@
                                 $('#'+called_by_id+' .rating').text(data.rating);
                                 $('#'+called_by_id+' .donation_amount').text(data.amount);
                                 $('#'+called_by_id+' .donation_date').text(data.date);
+                                $('.total').text(data.new_total);
                                 $('#addModal').modal('hide');
                             }
                         })
@@ -101,7 +108,7 @@
                 }
             }
 
-            $('.card').click(openModal);
+            $('.edit_space').click(openModal);
     
         });
     </script>
@@ -138,6 +145,20 @@
                 </div>
             </div>
             <div class="col"></div>
+        </div>
+        
+        <div class="modal fade modal_text" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title bold" id="deleteModalLabel">Are You Sure?</h5>
+                    </div>
+                    <div class="modal-body">
+                        <input type="submit" class="btn btn-secondary modal_close_button delete_donation" value="Yes">
+                        <button type="button" class="btn btn-secondary modal_close_button" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="modal fade modal_text" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -195,7 +216,7 @@
             <div class="col"></div>
             <div class="col-6 column">
                 <div class="text-center">
-                   <div class="container card add_card_format" id="add_button_card">
+                   <div class="container card add_card_format edit_space" id="add_button_card">
                         <div class="row align-items-center">
                             <div class="col text-center">
                                 <div class="row">
@@ -214,12 +235,13 @@
                    {% if donation_list %}
                    {% for donation in donation_list %}
                        <div class="container card" id="{{donation.id}}">
-                            <div class="row text-right">
-                                <div class="col">
-                                    <span class="delete_button" id="{{donation.id}}">X</span>
+                            <div class="row text-center">
+                                <div class="col edit_space" id="{{donation.id}}"></div>
+                                <div class="col-sm-auto delete_col delete_button" id="{{donation.id}}">
+                                    X
                                 </div>
                             </div>
-                            <div class="row card_text">
+                            <div class="row card_text edit_space" id="{{donation.id}}">
                                 <div class="col-8">
                                     <div class="row">
                                         <div class="col main_info charity_name">
@@ -255,7 +277,12 @@
                                     </div>
                                     <div class="row">
                                         <div class="col detail rating">
-                                            Rating: {{donation.donation_charity.charity_rating}} 
+                                            Rating: {{donation.donation_charity.charity_rating}} out of 4 stars 
+                                        </div>   
+                                    </div>
+                                    <div class="row">
+                                        <div class="col detail rating">
+                                            Rated By: Charity Navigator 
                                         </div>
                                     </div>
                                 </div>
