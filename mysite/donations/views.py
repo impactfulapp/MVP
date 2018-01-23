@@ -156,7 +156,8 @@ def detail(request, donation_id):
     return HttpResponse("You're looking at donation %s." % donation_id)
 
 def delete_update(request, donation_id):
-    donation_delete = get_object_or_404(Donation, pk=donation_id).delete()
+    Donation.objects.filter(id=donation_id).first().delete()
+    # donation_delete = get_object_or_404(Donation, pk=donation_id).delete()
     total_donations = get_total_donated(request.user)
     data = { 'total': total_donations }
     return JsonResponse(data)

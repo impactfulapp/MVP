@@ -41,18 +41,21 @@
             
             $('body').on('click', '.delete_button', function() {
                 var donation_id = $(this).attr('id')
-                //$('#deleteModal').modal('show');
-                //$('body').on('click', '.delete_donation', function() {
+                $('#deleteModal').modal('show');
+                $('#deleteModal').on('click', '.delete_confirm', function() {
                     $.ajax( {
                         url: 'delete_update/' + donation_id,
                         dataType: 'json',
                         success: function(data) {
                             $(".card#" + donation_id).hide("slow", function(){ $(".card#" + donation_id).remove(); });
                             $(".total").text(data.total.toString());
-                            //$('#deleteModal').modal('hide');
+                            $('#deleteModal').modal('hide');
                         }
                     });
-                //});
+                });
+                $('#deleteModal').on('click', '.delete_cancel', function() {
+                    $('#deleteModal').modal('hide');
+                });
             });
 
             function openModal() {
@@ -154,8 +157,8 @@
                         <h5 class="modal-title bold" id="deleteModalLabel">Are You Sure?</h5>
                     </div>
                     <div class="modal-body">
-                        <input type="submit" class="btn btn-secondary modal_close_button delete_donation" value="Yes">
-                        <button type="button" class="btn btn-secondary modal_close_button" data-dismiss="modal">No</button>
+                        <input type="submit" class="btn btn-secondary modal_close_button delete_confirm" value="Yes">
+                        <input type="submit" class="btn btn-secondary modal_close_button delete_cancel" value="No">
                     </div>
                 </div>
             </div>
