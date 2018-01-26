@@ -27,7 +27,7 @@ from django.core.serializers import serialize
 
 
 #get charity list from database
-conn = psycopg2.connect(host="localhost", database="niravsuraiya")
+conn = psycopg2.connect(host="localhost", dbname="charity_db", user="postgres", password="postgres")
 cur = conn.cursor()
 getCommand = "SELECT name FROM all_charities"
 cur.execute(getCommand)

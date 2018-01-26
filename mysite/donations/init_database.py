@@ -5,7 +5,7 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 #connect to postgres
 #conn = psycopg2.connect(host="localhost", database="niravsuraiya")
-conn = psycopg2.connect(dbname='postgres', user='postgres', host='localhost', password='')
+conn = psycopg2.connect(dbname='postgres', user='postgres', host='localhost', password='postgres')
 conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 cur = conn.cursor()
 
@@ -19,7 +19,7 @@ cur.close()
 conn.close()
 
 #switch to new database
-conn = psycopg2.connect(host="localhost", database="charity_db")
+conn = psycopg2.connect(host="localhost", dbname="charity_db", user="postgres", password='postgres')
 cur = conn.cursor()
 
 #create new table for all charities
