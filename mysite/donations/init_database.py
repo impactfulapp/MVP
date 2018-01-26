@@ -1,6 +1,7 @@
 #populate postgres database with information from Charity Navigator API
 
 import requests, json, psycopg2
+<<<<<<< HEAD
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 #connect to postgres
