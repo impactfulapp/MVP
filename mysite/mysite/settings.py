@@ -137,9 +137,9 @@ SOCIAL_AUTH_PIPELINE = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'niravsuraiya',
-        'USER': 'niravsuraiya',
-        'PASSWORD': '',
+        'NAME': 'charity_db',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': '5432',
     }
