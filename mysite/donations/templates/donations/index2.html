@@ -8,13 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- "book template" -->
-    <script id="bookTemplate" type="text/template">
-        <img src="<%= coverImage %>"/>
+    <script id="cardTemplate" type="text/template">
         <ul>
-            <li><%= title %></li>
-            <li><%= author %></li>
-            <li><%= releaseDate %></li>
-            <li><%= keywords %></li>
+            <li><%= charity_name %></li>
+            <li><%= donation_amount %></li>
+            <li><%= donation_date %></li>
         </ul>
 
         <button class="delete">Delete</button>
@@ -49,10 +47,10 @@
     <script type="text/javascript" src="{% static 'donations/backbone.modal.js' %}"></script>
 
 
-    <script src="{% static 'donations/js/models/book.js'%}"></script>
-    <script src="{% static 'donations/js/collections/library.js'%}"></script>
-    <script src="{% static 'donations/js/views/book.js'%}"></script>
-    <script src="{% static 'donations/js/views/library.js'%}"></script>
+    <script src="{% static 'donations/js/models/card.js'%}"></script>
+    <script src="{% static 'donations/js/collections/cardlist.js'%}"></script>
+    <script src="{% static 'donations/js/views/card.js'%}"></script>
+    <script src="{% static 'donations/js/views/cardlist.js'%}"></script>
     <script src="{% static 'donations/js/app.js'%}"></script>
     <title>Impactful MVP</title>
 
@@ -158,31 +156,28 @@
 
   <!-- main layout -->
 
-
-
-
-      <div id="books">
-      <form id="addBook" action="#">
+      <div id="cards">
+      <form id="addCard" action="#">
           <div>
-              <label for="coverImage">CoverImage: </label><input id="coverImage" type="file" />
-              <label for="title">Title: </label><input id="title" type="text" />
-              <label for="author">Author: </label><input id="author" type="text" />
-              <label for="releaseDate">Release date: </label><input id="releaseDate" type="text" />
-              <label for="keywords">Keywords: </label><input id="keywords" type="text" />
+              <!-- <label for="coverImage">CoverImage: </label><input id="coverImage" type="file" /> -->
+              <label for="new_charity">Charity: </label><input id="charity_name" type="text" />
+              <label for="new_amount">Amount: </label><input id="donation_amount" type="text" />
+              <label for="new_date">Donation Date: </label><input id="donation_date" type="text" />
+              <!-- <label for="keywords">Keywords: </label><input id="keywords" type="text" /> -->
               <button id="add">Add</button>
           </div>
       </form>
       </div>
 
-      <div class="bookContainer">
+      <!-- <div class="bookContainer">
         <ul>
             <li>Title</li>
             <li>Author</li>
             <li>Release Date</li>
             <li>Keywords</li>
-        </ul>
+        </ul> -->
 
-        <button class="delete">Delete</button>
+        <!-- <button class="delete">Delete</button> -->
     </div>
 
 
