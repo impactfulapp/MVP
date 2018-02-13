@@ -30,5 +30,5 @@ urlpatterns = [
     # add or update donation
     url(r'^add_form/(?P<donation_id>\d+)/$', views.add_form, name='add_form'),
 
-]
 
+]
