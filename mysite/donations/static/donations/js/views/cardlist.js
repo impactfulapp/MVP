@@ -2,11 +2,11 @@ var app = app || {};
 
 app.CardListView = Backbone.View.extend({
     el: '#cards',
-    new_card: new app.Card(),
 
     initialize: function( initialCards ) {
         this.collection = new app.CardList( initialCards );
         this.render();
+        this.getTotalDonated();
         this.listenTo( this.collection, 'add', this.renderCard);
     },
 
@@ -28,7 +28,7 @@ app.CardListView = Backbone.View.extend({
 
     events: {
     'click #add':'addCard'
-    },
+    }, 
 
     addCard: function( e ) {
         console.log("adding card");
@@ -56,6 +56,8 @@ app.CardListView = Backbone.View.extend({
         console.log(dataJson);
 
         this.collection.add( new_card );
+        this.getTotalDonated();
+
         $.ajax( {
           url: 'add_donation/',
           dataType: 'json',
@@ -67,8 +69,24 @@ app.CardListView = Backbone.View.extend({
         });
     },
 
-    returnCard: function() {
-        return new_card;
+    getTotalDonated: function() {
+        console.log("entered getTotalDonated");
+        var total = 0;
+        this.collection.each(function(item) {
+            total = total + parseFloat(item.attributes.donation_amount);
+        });
+        console.log(total);
+        var totalModel = new app.Total({total_amount: total});
+        console.log(totalModel);
+        this.renderTotal(totalModel);
+    },
+
+    renderTotal: function( item ) {
+        console.log("entered renderTotal");
+        var totalView = new app.TotalView({
+            model: item
+        });
+        $('#footer').append(totalView.render().el);
     },
 
 });

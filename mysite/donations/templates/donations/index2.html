@@ -75,6 +75,14 @@
       </div>
     </script>
 
+    <script type="text/template" id="totalTemplate">
+      <!-- <div class="container footer"> -->
+          <div class="text-center">
+              <h2>Total Donations: $<span class="total"><%-total_amount%></span></h2>
+          </div>
+      <!-- </div> -->
+    </script>
+
     <script type="text/template" id="modal-template">
         <!-- <div class="modal fade modal_text" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -133,6 +141,8 @@
     <script src="{% static 'donations/js/collections/cardlist.js'%}"></script>
     <script src="{% static 'donations/js/views/card.js'%}"></script>
     <script src="{% static 'donations/js/views/cardlist.js'%}"></script>
+    <script src="{% static 'donations/js/models/total.js'%}"></script>
+    <script src="{% static 'donations/js/views/total.js'%}"></script>
     <script src="{% static 'donations/js/views/addmodal.js'%}"></script>
     <script src="{% static 'donations/js/app.js'%}"></script> 
     <title>Impactful MVP</title>
@@ -183,27 +193,26 @@
                 <div id="cards">
                     <button class="edit_space">Add New</button>
                     <form id="addCard" action="#">
-                          <div>
-                              <!-- <label for="coverImage">CoverImage: </label><input id="coverImage" type="file" /> -->
-                              <label for="new_charity">Charity: </label><input id="charity_name" type="text" />
-                              <label for="new_amount">Amount: </label><input id="donation_amount" type="text" />
-                              <label for="new_date">Donation Date: </label><input id="donation_date" type="date" />
-                              <!-- <label for="keywords">Keywords: </label><input id="keywords" type="text" /> -->
-                              <button id="add">Add</button>
-                          </div>
-                        </form>
+                        <div>
+                            <label for="new_charity">Charity: </label><input id="charity_name" type="text" />
+                            <label for="new_amount">Amount: </label><input id="donation_amount" type="text" />
+                            <label for="new_date">Donation Date: </label><input id="donation_date" type="date" />
+                            <button id="add">Add</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
 <!-- Footer -->
-    <div class="container" id="footer">
+    <div class="container footer"></div>
+    <!-- <div class="container footer">
         <div class="text-center">
             <h2>Total Donations: $<span class="total">{{total_donations}}</span></h2>
         </div>
     </div>
-
+ -->
 
             <!-- Modal HTML layout -->
         <!-- <div class="modal fade modal_text" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
