@@ -71,6 +71,14 @@ body {
     background: lightgrey;
 }
 
+.delete_space {
+    padding: 5px;
+}
+
+.delete {
+    cursor: pointer;
+}
+
 .form-inputs {
     float:left;
     width:100%;

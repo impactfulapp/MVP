@@ -57,6 +57,38 @@ def index(request):
     context = {'donation_list': donation_list , 'total_donations': total_donations} 
     return render(request, 'donations/index2.html', context)
 
+def add_donation(request):
+    charity_to_add = request.GET.get('charity', None)
+    amount_to_add = request.GET.get('amount', None)
+    date_to_add = request.GET.get('date', None)
+    #datetime_object = datetime.strptime(date_to_add, '%x')
+    print(charity_to_add)
+    print(amount_to_add)
+    print(date_to_add)
+    #print(datetime_object)
+
+    new_charity = Charity(charity_name=charity_to_add)
+    
+    # # try:
+    # #     new_charity.charity_cause = charity_details[new_charity_name]['cause']
+    # #     new_charity.charity_rating = charity_details[new_charity_name]['rating']
+    # #     new_charity.charity_tagline = charity_details[new_charity_name]['tagline']
+    # # except Exception:
+    # #     new_charity.charity_cause = 'Unknown'
+    # #     new_charity.charity_rating = 0
+    # #     new_charity.charity_tagline = 'Unknown'
+#  #datetime.datetime.now()
+    new_charity.save()
+    new_donation = Donation(donation_charity=new_charity, donation_amount=amount_to_add, donation_date=date_to_add)
+    # console.log("checkpoint 2")
+    new_donation.donation_donor = request.user
+    # console.log("checkpoint 3")
+    new_donation.save()
+    # console.log("checkpoint 4")
+    # console.log(new_donation.donation_date)
+        
+    return HttpResponse(200)
+
 def add_form(request, donation_id):
     charity_to_add = request.GET.get('charity', None)
     amount_to_add = request.GET.get('amount', None)

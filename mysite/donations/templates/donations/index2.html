@@ -1,14 +1,14 @@
 <!doctype html>
 {% load static %}
 
-<html lang="en">
+<html lang="en"> 
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- "book template" -->
-    <script id="cardTemplate" type="text/template">
+    <!-- "card template" -->
+    <!-- <script id="cardTemplate" type="text/template">
         <ul>
             <li><%= charity_name %></li>
             <li><%= donation_amount %></li>
@@ -16,186 +16,15 @@
         </ul>
 
         <button class="delete">Delete</button>
-    </script>
+    </script> -->
 
-
-    <!-- ========= -->
-    <!-- Libraries -->
-    <!-- ========= -->
-    <!-- paths -->
-
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" type="text/javascript"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js" type="text/javascript"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.0/backbone.localStorage-min.js" type="text/javascript"></script>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'donations/style2.css' %}" />
-
-    <!--backbone modal-->
-    <link type="text/css" rel="stylesheet" href="{% static 'donations/backbone.modal.css' %}"/>
-    <link type="text/css" rel="stylesheet" href="{% static 'donations/backbone.modal.theme.css' %}"/>
-    <script type="text/javascript" src="{% static 'donations/backbone.modal.js' %}"></script>
-
-
-    <script src="{% static 'donations/js/models/card.js'%}"></script>
-    <script src="{% static 'donations/js/collections/cardlist.js'%}"></script>
-    <script src="{% static 'donations/js/views/card.js'%}"></script>
-    <script src="{% static 'donations/js/views/cardlist.js'%}"></script>
-    <script src="{% static 'donations/js/app.js'%}"></script>
-    <title>Impactful MVP</title>
-
-  </head>
-
-  <body>
-    <!-- header with logo and links -->
-    <div class="container-fluid" id="header">
+    <script type="text/template" id="cardTemplate">
+      <div class="container card_css">
         <div class="row">
-            <div class="col">
-                <a href="../donations">
-                    <img src="{% static 'donations/images/logo.jpg' %}" style="width="127" height="29""/>
-                </a>
+            <div class="col-11 edit_space"></div>
+            <div class="col text-right delete_space">
+                <span class="delete">X</span>
             </div>
-            <div class="col">
-                <div class="links">
-                    <a href="/donations/logout/">Logout</a>
-                </div>
-                <div class="links">
-                    <a href="/donations/settings/">Your Profile</a>
-                </div>
-                <div class="links">
-                    <a href="/donations/">Your History</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Everything in the main body except for the footer -->
-    <div class="container-fluid">
-        <div class="row" id="form_row">
-            <div class="col"></div>
-            <div class="col-6">
-                <div class="text-center">
-                    <div class="title">
-                        <h2>Donation History</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="col"></div>
-        </div>
-
-        <!-- Modal HTML layout -->
-        <!-- <div class="modal fade modal_text" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title bold" id="deleteModalLabel">Are You Sure?</h5>
-                    </div>
-                    <div class="modal-body">
-                        <input type="submit" class="btn btn-secondary modal_close_button delete_confirm" value="Yes">
-                        <input type="submit" class="btn btn-secondary modal_close_button delete_cancel" value="No">
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-        <!-- <div class="modal fade modal_text" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title bold" id="addModalLabel">Donation Details</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                            <div class="form-group">
-                                {% csrf_token %}
-                                <div class="row">
-                                    <div class="col-4 text-right">
-                                        <label for="new_charity">Charity Name</label>
-                                    </div>
-                                    <div class="col form-input-box">
-                                        <input class="form-inputs" id="new_charity" type="text" name="new_charity" value="{{ new_charity }}" placeholder="Find your charity or enter your own">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4 text-right">
-                                        <label for="new_amount">Donation Amount</label>
-                                    </div>
-                                    <div class="col form-input-box">
-                                        <div class="dollar_sign">
-                                            $
-                                        </div>
-                                        <input class="form-inputs amount-input" id="new_amount" type="number" name="new_amount" value="{{ new_amount }}" placeholder="Enter amount in USD">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4 text-right">
-                                        <label for="new_date">Date Donated</label>
-                                    </div>
-                                    <div class="col form-input-box">
-                                        <input class="form-inputs form-date" id="new_date" type="date" name="new_date" value="{{ new_date }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="submit" class="btn btn-secondary modal_close_button save_donation" value="Save">
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-  <!-- main layout -->
-
-      <div id="cards">
-      <form id="addCard" action="#">
-          <div>
-              <!-- <label for="coverImage">CoverImage: </label><input id="coverImage" type="file" /> -->
-              <label for="new_charity">Charity: </label><input id="charity_name" type="text" />
-              <label for="new_amount">Amount: </label><input id="donation_amount" type="text" />
-              <label for="new_date">Donation Date: </label><input id="donation_date" type="text" />
-              <!-- <label for="keywords">Keywords: </label><input id="keywords" type="text" /> -->
-              <button id="add">Add</button>
-          </div>
-      </form>
-      </div>
-
-      <!-- <div class="bookContainer">
-        <ul>
-            <li>Title</li>
-            <li>Author</li>
-            <li>Release Date</li>
-            <li>Keywords</li>
-        </ul> -->
-
-        <!-- <button class="delete">Delete</button> -->
-    </div>
-
-
-
-    </div>
-
-<!-- Footer -->
-    <div class="container-fluid" id="footer">
-        <div class="text-center">
-            <h2>Total Donations: $<span class="total">{{total_donations}}</span></h2>
-        </div>
-    </div>
-
-    <!--// Templates -->
-    <script type="text/template" id="card-template">
-      <div class="card_css">
-        <div class="row text-center">
-          <button class = 'destroy'>x</button>
         </div>
         <div class="row card_text edit_space" id="{{donation.id}}">
             <div class="col-8">
@@ -245,6 +74,230 @@
         </div>
       </div>
     </script>
+
+    <script type="text/template" id="modal-template">
+        <!-- <div class="modal fade modal_text" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content"> -->
+                    <div class="modal-header">
+                        <h5 class="modal-title bold" id="addModalLabel">Donation Details</h5><!-- 
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button> -->
+                    </div>
+                    <!-- <div class="modal-body"> -->
+                        <form id="addCard" action="#">
+                          <div>
+                              <!-- <label for="coverImage">CoverImage: </label><input id="coverImage" type="file" /> -->
+                              <label for="new_charity">Charity: </label><input id="charity_name" type="text" />
+                              <label for="new_amount">Amount: </label><input id="donation_amount" type="text" />
+                              <label for="new_date">Donation Date: </label><input id="donation_date" type="text" />
+                              <!-- <label for="keywords">Keywords: </label><input id="keywords" type="text" /> -->
+                              <input type="submit" id="addCardButton">Add</button>
+                          </div>
+                        </form>
+                    <!-- </div>
+                </div>
+            </div>
+        </div> -->
+    </script>
+
+
+    <!-- ========= -->
+    <!-- Libraries -->
+    <!-- ========= -->
+    <!-- paths -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" type="text/javascript"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js" type="text/javascript"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.0/backbone.localStorage-min.js" type="text/javascript"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'donations/style2.css' %}" />
+
+    <!--backbone modal-->
+    <link type="text/css" rel="stylesheet" href="{% static 'donations/backbone.modal.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'donations/backbone.modal.theme.css' %}"/>
+    <script type="text/javascript" src="{% static 'donations/js/views/Backbone.ModalDialog.js' %}"></script>
+
+
+    <script src="{% static 'donations/js/models/card.js'%}"></script>
+    <script src="{% static 'donations/js/collections/cardlist.js'%}"></script>
+    <script src="{% static 'donations/js/views/card.js'%}"></script>
+    <script src="{% static 'donations/js/views/cardlist.js'%}"></script>
+    <script src="{% static 'donations/js/views/addmodal.js'%}"></script>
+    <script src="{% static 'donations/js/app.js'%}"></script> 
+    <title>Impactful MVP</title>
+
+  </head>
+
+  <body>
+    <!-- header with logo and links -->
+    <div class="container-fluid" id="header">
+        <div class="row">
+            <div class="col">
+                <a href="../donations">
+                    <img src="{% static 'donations/images/logo.jpg' %}" style="width="127" height="29""/>
+                </a>
+            </div>
+            <div class="col">
+                <div class="links">
+                    <a href="/donations/logout/">Logout</a>
+                </div>
+                <div class="links">
+                    <a href="/donations/settings/">Your Profile</a>
+                </div>
+                <div class="links">
+                    <a href="/donations/">Your History</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Everything in the main body except for the footer -->
+    <div class="container-fluid">
+        <div class="row" id="form_row">
+            <div class="col"></div>
+            <div class="col-6">
+                <div class="text-center">
+                    <div class="title">
+                        <h2>Donation History</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+
+    <!-- main layout -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div id="cards">
+                    <button class="edit_space">Add New</button>
+                    <form id="addCard" action="#">
+                          <div>
+                              <!-- <label for="coverImage">CoverImage: </label><input id="coverImage" type="file" /> -->
+                              <label for="new_charity">Charity: </label><input id="charity_name" type="text" />
+                              <label for="new_amount">Amount: </label><input id="donation_amount" type="text" />
+                              <label for="new_date">Donation Date: </label><input id="donation_date" type="date" />
+                              <!-- <label for="keywords">Keywords: </label><input id="keywords" type="text" /> -->
+                              <button id="add">Add</button>
+                          </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Footer -->
+    <div class="container-fluid" id="footer">
+        <div class="text-center">
+            <h2>Total Donations: $<span class="total">{{total_donations}}</span></h2>
+        </div>
+    </div>
+
+
+            <!-- Modal HTML layout -->
+        <!-- <div class="modal fade modal_text" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title bold" id="deleteModalLabel">Are You Sure?</h5>
+                    </div>
+                    <div class="modal-body">
+                        <input type="submit" class="btn btn-secondary modal_close_button delete_confirm" value="Yes">
+                        <input type="submit" class="btn btn-secondary modal_close_button delete_cancel" value="No">
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!--new add modal-->
+
+        <div class="modal fade modal_text" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title bold" id="addModalLabel">Donation Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addCard" action="#">
+                          <div>
+                              <!-- <label for="coverImage">CoverImage: </label><input id="coverImage" type="file" /> -->
+                              <label for="new_charity">Charity: </label><input id="charity_name" type="text" />
+                              <label for="new_amount">Amount: </label><input id="donation_amount" type="text" />
+                              <label for="new_date">Donation Date: </label><input id="donation_date" type="text" />
+                              <!-- <label for="keywords">Keywords: </label><input id="keywords" type="text" /> -->
+                              <button id="add">Add</button>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--old add modal
+
+        <div class="modal fade modal_text" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title bold" id="addModalLabel">Donation Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                            <div class="form-group">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-4 text-right">
+                                        <label for="new_charity">Charity Name</label>
+                                    </div>
+                                    <div class="col form-input-box">
+                                        <input class="form-inputs" id="new_charity" type="text" name="new_charity" value="{{ new_charity }}" placeholder="Find your charity or enter your own">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 text-right">
+                                        <label for="new_amount">Donation Amount</label>
+                                    </div>
+                                    <div class="col form-input-box">
+                                        <div class="dollar_sign">
+                                            $
+                                        </div>
+                                        <input class="form-inputs amount-input" id="new_amount" type="number" name="new_amount" value="{{ new_amount }}" placeholder="Enter amount in USD">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4 text-right">
+                                        <label for="new_date">Date Donated</label>
+                                    </div>
+                                    <div class="col form-input-box">
+                                        <input class="form-inputs form-date" id="new_date" type="date" name="new_date" value="{{ new_date }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-secondary modal_close_button save_donation" value="Save">
+                    </div>
+                </div>
+            </div>
+        </div> 
+        -->
+
+
+
 
     <!-- =============== -->
     <!-- Javascript code -->
@@ -367,32 +420,32 @@
 
       //--------------
       // Routers
-      //--------------
-      app.Router = Backbone.Router.extend({
-        routes: {
-          '*filter' : 'setFilter'
-        },
-        setFilter: function(params) {
-          console.log('app.router.params = ' + params);
-          window.filter = params.trim() || '';
-          app.cardList.trigger('reset');
-        }
-      });
+      // //--------------
+      // app.Router = Backbone.Router.extend({
+      //   routes: {
+      //     '*filter' : 'setFilter'
+      //   },
+      //   setFilter: function(params) {
+      //     console.log('app.router.params = ' + params);
+      //     window.filter = params.trim() || '';
+      //     app.cardList.trigger('reset');
+      //   }
+      // });
 
-      //--------------
-      // Initializers
-      //--------------
-      app.router = new app.Router();
-      Backbone.history.start();
-      app.appView = new app.AppView();
+      // //--------------
+      // // Initializers
+      // //--------------
+      // app.router = new app.Router();
+      // Backbone.history.start();
+      // app.appView = new app.AppView();
 
     </script>
 
 <!-- modal template -->
     <script type="text/template" id="modal-template">
-      <!-- <div class="bbm-modal__topbar">
+      <div class="bbm-modal__topbar">
         <h3 class="bbm-modal__title">Backbone.Modal</h3>
-      </div> -->
+      </div> 
       <div class="bbm-modal__section">
         <div class="modal-header">
             <h5 class="modal-title bold" id="addModalLabel">Donation Details</h5>
@@ -401,7 +454,17 @@
             </button>
         </div>
         <div class="modal-body">
-            <!-- <form action="" method="post"> -->
+            <form id="addCard" action="#">
+              <div>
+                  <!-- <label for="coverImage">CoverImage: </label><input id="coverImage" type="file" /> -->
+                  <label for="new_charity">Charity: </label><input id="charity_name" type="text" />
+                  <label for="new_amount">Amount: </label><input id="donation_amount" type="text" />
+                  <label for="new_date">Donation Date: </label><input id="donation_date" type="text" />
+                  <!-- <label for="keywords">Keywords: </label><input id="keywords" type="text" /> -->
+                  <button id="add">Add</button>
+              </div>
+            </form>
+             <!-- <form action="" method="post">
                 <div class="form-group">
                     {% csrf_token %}
                     <div class="row">
@@ -435,17 +498,17 @@
 
 
                 <input type="submit" class="btn btn-secondary modal_close_button save_donation" value="Save">
-            <!-- </form> -->
+            </form>  -->
         </div>
     </div>
 
       <!-- <div class="bbm-modal__bottombar">
         <a href="#" class="bbm-button">close</a>
       </div> -->
-    </script>
+    <!-- </script> -->
 
 <!-- Backbone modal definition -->
-    <!-- <script>
+ <!--    <script>
       jQuery(function($) {
         // Create a modal view class
         var Modal = Backbone.Modal.extend({
@@ -454,20 +517,14 @@
           events: {"submit form": "onSubmit"},
           initialize: function() {
         		// this.show();
-          },
-          render: function() {
-
-          },
-          onSubmit: function() {
-            // work on this
           }
 
-        });
+          $('.open').on('click', function(){
+            // Render an instance of your modal
+            var modalView = new Modal();
+            $('.app').html(modalView.render().el);
+          });
 
-        $('#add_button_card').on('click', function(){
-          // Render an instance of your modal
-          var modalView = new Modal();
-          $('.cardapp').html(modalView.render().el);
         });
 
       });
@@ -480,6 +537,40 @@
 <!-- Events and calls -->
     <script>
           $(document).ready( function() {
+              //take donations_list from context, parse through it by Donation, create Backbone Cards
+              //use ''new app.CardListView( cards );'' to create the initial list view
+              // var init_donations = {{donation_list}};
+              // init_donations.each(function(item){
+              //   console.log("Inside the init_donations function");
+              //   console.log(item);
+              // });
+
+               init_donations('{{donation_list}}');
+
+               function init_donations(donations_list) {
+                //var app = app || {};
+                var cards = [];
+
+                {% for donation in donation_list %} 
+                    //console.log("Inside the init_donations function");
+                    var donation = '{{donation}}';
+                    var charity = '{{donation.donation_charity}}';
+                    var amount = '{{donation.donation_amount}}';
+                    var date = '{{donation.donation_date}}';
+                    // console.log(donation);
+                    // console.log(charity);
+                    // console.log(amount);
+                    // console.log(date);
+                    //console.log(donation.toJSON());
+                    cards.push({ charity_name: charity, donation_amount: amount, donation_date: date } );
+                    
+                {% endfor %}
+
+                new app.CardListView( cards );
+                console.log('end of init_donations function')
+              }
+
+
               $( "#new_charity" ).autocomplete({
                   source: function(request, response) {
                       $.ajax( {
@@ -499,88 +590,130 @@
               } );
 
 
-              $('body').on('click', '.delete_button', function() {
-                  var donation_id = $(this).attr('id')
-                  $('#deleteModal').modal('show');
-                  $('#deleteModal').on('click', '.delete_confirm', function() {
-                      $.ajax( {
-                          url: 'delete_update/' + donation_id,
-                          dataType: 'json',
-                          success: function(data) {
-                              $(".card#" + donation_id).hide("slow", function(){ $(".card#" + donation_id).remove(); });
-                              $(".total").text(data.total.toString());
-                              $('#deleteModal').modal('hide');
-                          }
-                      });
-                  });
-                  $('#deleteModal').on('click', '.delete_cancel', function() {
-                      $('#deleteModal').modal('hide');
-                  });
-              });
+              // master_card_list = new app.CardList();
+              // master_card_view = new app.CardListView({
+              //   collection: master_card_list,
+              //   el: "#cards"
+              // });
 
-              function openModal() {
-                  called_by_id = $(this).attr('id');
-                  console.log(called_by_id)
-                  called_by_class = $(this).attr('class');
-                  console.log(called_by_class)
-                  $('#addModal').modal('show');
-                  if(called_by_id != 'add_button_card') {
-                      var charity_name = $.trim($('#'+called_by_id+' .charity_name').text());
-                      var donation_amount = parseInt($.trim($('#'+called_by_id+' .donation_amount').text()));
-                      var donation_date = new Date(Date.parse($.trim($('#'+called_by_id+' .donation_date').text()))).toISOString().slice(0,10);
-                      $("#new_charity").val(charity_name);
-                      $("#new_amount").val(donation_amount);
-                      $("#new_date").val(donation_date);
-                      $('body').on('click', '.save_donation', function() {
-                          // ```var todo = new app.Todo({title: 'Learn Backbone.js', completed: false});```
+              // function openNewModal(event) {
+              //   console.log("opening modal");
+              //   // $('#addModal').modal('show');
+              //   var new_card = new app.Card();
+              //   var new_view = new app.AddCardView({model:new_card});
+              //   new_view.render().showModal({
+              //           x: event.pageX,
+              //           y: event.pageY
+              //   });
+              // }
 
-                          $.ajax( {
-                              url: 'add_form/' + called_by_id,
-                              dataType: 'json',
-                              data: {charity: $('#new_charity').val(), amount: $('#new_amount').val(), date: $('#new_date').val()},
-                              success: function(data) {
-                                  console.log(data)
-                                  /*edit this card with card details from data*/
-                                  $('#'+called_by_id+' .charity_name').text(data.charity);
-                                  $('#'+called_by_id+' .tagline').text(data.tagline);
-                                  $('#'+called_by_id+' .cause').text(data.cause);
-                                  $('#'+called_by_id+' .rating').text(data.rating);
-                                  $('#'+called_by_id+' .donation_amount').text(data.amount);
-                                  $('#'+called_by_id+' .donation_date').text(data.date);
-                                  $('.total').text(data.new_total);
-                                  $('#addModal').modal('hide');
-                              }
-                          })
-                      })
+
+              // function closeNewModal() {
+              //   console.log("closing modal");
+              //   $('#addModal').modal('hide');
+              // }
+
+
+              function addDonationToBackend() {
+                var new_card = app.CardListView.returnCard();
+                $.ajax( {
+                  url: 'add_donation/',
+                  dataType: 'json',
+                  data: {charity : new_card.charity_name, amount : new_card.donation_amount, date : new_card.donation_date},
+                  success: function() {
+                    console.log(new_card.charity_name);
+                    console.log("added to backend");
                   }
-                  else
-                  {
-                      //$("#new_charity").val('Find your charity or enter your own');
-                      $("#new_charity").attr('placeholder', 'Find your charity or enter your own').blur();
-                      $("#new_amount").val('Enter amount in USD');
-                      $("#new_date").val('MM/DD/YYYY');
-                      $('body').on('click', '.save_donation', function() {
-                        var donation = new app.Card({
-                          charity_name:  $('#new_charity').val(),
-                          donation_amount: $('#new_amount').val(),
-                          donation_date: $('#new_date').val()
-                        });
-                        donation.save();
-                        console.log(donation.toJSON());
-                          $.ajax( {
-                              url: 'add_form/0',
-                              dataType: 'json',
-                              data: {charity: $('#new_charity').val(), amount: $('#new_amount').val(), date: $('#new_date').val()},
-                              success: function() {
-                                  $('#addModal').modal('hide');
-                                  location.reload();
-                              }
-                          })
-                      })
-                  }
+                });
               }
 
-              $('.edit_space').click(openModal);
+
+              //$('.edit_space').click(openNewModal);
+              //$('#add').click(addDonationToBackend);
+
+
+
+              // $('body').on('click', '.delete_button', function() {
+              //     var donation_id = $(this).attr('id')
+              //     $('#deleteModal').modal('show');
+              //     $('#deleteModal').on('click', '.delete_confirm', function() {
+              //         $.ajax( {
+              //             url: 'delete_update/' + donation_id,
+              //             dataType: 'json',
+              //             success: function(data) {
+              //                 $(".card#" + donation_id).hide("slow", function(){ $(".card#" + donation_id).remove(); });
+              //                 $(".total").text(data.total.toString());
+              //                 $('#deleteModal').modal('hide');
+              //             }
+              //         });
+              //     });
+              //     $('#deleteModal').on('click', '.delete_cancel', function() {
+              //         $('#deleteModal').modal('hide');
+              //     });
+              // });
+
+              // function openModal() {
+              //     called_by_id = $(this).attr('id');
+              //     console.log(called_by_id)
+              //     called_by_class = $(this).attr('class');
+              //     console.log(called_by_class)
+              //     $('#addModal').modal('show');
+              //     if(called_by_id != 'add_button_card') {
+              //         var charity_name = $.trim($('#'+called_by_id+' .charity_name').text());
+              //         var donation_amount = parseInt($.trim($('#'+called_by_id+' .donation_amount').text()));
+              //         var donation_date = new Date(Date.parse($.trim($('#'+called_by_id+' .donation_date').text()))).toISOString().slice(0,10);
+              //         $("#new_charity").val(charity_name);
+              //         $("#new_amount").val(donation_amount);
+              //         $("#new_date").val(donation_date);
+              //         $('body').on('click', '.save_donation', function() {
+              //             // ```var todo = new app.Todo({title: 'Learn Backbone.js', completed: false});```
+
+              //             $.ajax( {
+              //                 url: 'add_form/' + called_by_id,
+              //                 dataType: 'json',
+              //                 data: {charity: $('#new_charity').val(), amount: $('#new_amount').val(), date: $('#new_date').val()},
+              //                 success: function(data) {
+              //                     console.log(data)
+              //                     /*edit this card with card details from data*/
+              //                     $('#'+called_by_id+' .charity_name').text(data.charity);
+              //                     $('#'+called_by_id+' .tagline').text(data.tagline);
+              //                     $('#'+called_by_id+' .cause').text(data.cause);
+              //                     $('#'+called_by_id+' .rating').text(data.rating);
+              //                     $('#'+called_by_id+' .donation_amount').text(data.amount);
+              //                     $('#'+called_by_id+' .donation_date').text(data.date);
+              //                     $('.total').text(data.new_total);
+              //                     $('#addModal').modal('hide');
+              //                 }
+              //             })
+              //         })
+              //     }
+              //     else
+              //     {
+              //         //$("#new_charity").val('Find your charity or enter your own');
+              //         $("#new_charity").attr('placeholder', 'Find your charity or enter your own').blur();
+              //         $("#new_amount").val('Enter amount in USD');
+              //         $("#new_date").val('MM/DD/YYYY');
+              //         $('body').on('click', '.save_donation', function() {
+              //           var donation = new app.Card({
+              //             charity_name:  $('#new_charity').val(),
+              //             donation_amount: $('#new_amount').val(),
+              //             donation_date: $('#new_date').val()
+              //           });
+              //           donation.save();
+              //           console.log(donation.toJSON());
+              //             $.ajax( {
+              //                 url: 'add_form/0',
+              //                 dataType: 'json',
+              //                 data: {charity: $('#new_charity').val(), amount: $('#new_amount').val(), date: $('#new_date').val()},
+              //                 success: function() {
+              //                     $('#addModal').modal('hide');
+              //                     location.reload();
+              //                 }
+              //             })
+              //         })
+              //     }
+              // }
+
 
           });
       </script>
