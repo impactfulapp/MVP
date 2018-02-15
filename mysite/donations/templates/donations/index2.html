@@ -198,7 +198,7 @@
     </div>
 
 <!-- Footer -->
-    <div class="container-fluid" id="footer">
+    <div class="container" id="footer">
         <div class="text-center">
             <h2>Total Donations: $<span class="total">{{total_donations}}</span></h2>
         </div>
@@ -537,41 +537,27 @@
 <!-- Events and calls -->
     <script>
           $(document).ready( function() {
-              //take donations_list from context, parse through it by Donation, create Backbone Cards
-              //use ''new app.CardListView( cards );'' to create the initial list view
-              // var init_donations = {{donation_list}};
-              // init_donations.each(function(item){
-              //   console.log("Inside the init_donations function");
-              //   console.log(item);
-              // });
 
-               init_donations('{{donation_list}}');
+              //populate Backbone cards from Django context
+              init_donations('{{donation_list}}');
 
-               function init_donations(donations_list) {
-                //var app = app || {};
+              function init_donations(donations_list) {
                 var cards = [];
 
                 {% for donation in donation_list %} 
-                    //console.log("Inside the init_donations function");
                     var donation = '{{donation}}';
                     var charity = '{{donation.donation_charity}}';
                     var amount = '{{donation.donation_amount}}';
                     var date = '{{donation.donation_date}}';
-                    // console.log(donation);
-                    // console.log(charity);
-                    // console.log(amount);
-                    // console.log(date);
-                    //console.log(donation.toJSON());
-                    cards.push({ charity_name: charity, donation_amount: amount, donation_date: date } );
-                    
+                    cards.push({ charity_name: charity, donation_amount: amount, donation_date: date } );    
                 {% endfor %}
 
                 new app.CardListView( cards );
                 console.log('end of init_donations function')
               }
 
-
-              $( "#new_charity" ).autocomplete({
+              //autocomplete charity name input field
+              $( "#charity_name" ).autocomplete({
                   source: function(request, response) {
                       $.ajax( {
                           url: 'ajax/get_charities',
@@ -589,6 +575,8 @@
                   minLength: 2
               } );
 
+
+              //modal functions
 
               // master_card_list = new app.CardList();
               // master_card_view = new app.CardListView({
@@ -612,20 +600,6 @@
               //   console.log("closing modal");
               //   $('#addModal').modal('hide');
               // }
-
-
-              function addDonationToBackend() {
-                var new_card = app.CardListView.returnCard();
-                $.ajax( {
-                  url: 'add_donation/',
-                  dataType: 'json',
-                  data: {charity : new_card.charity_name, amount : new_card.donation_amount, date : new_card.donation_date},
-                  success: function() {
-                    console.log(new_card.charity_name);
-                    console.log("added to backend");
-                  }
-                });
-              }
 
 
               //$('.edit_space').click(openNewModal);

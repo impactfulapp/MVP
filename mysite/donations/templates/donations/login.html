@@ -1,22 +1,50 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'donations/login_style.css' %}" />
-<img src="{% static 'donations/images/logo.jpg' %}" style="position:absolute; top:19%; left:25%" width="710" height="163"/>
 
-<div class="welcome">
-Welcome to Impactful! Please log in with Facebook here:
-</div>
+<head>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'donations/login_style.css' %}" />
+</head>
 
-<a href="{% url 'social:begin' 'facebook' %}">
-    <img src="{% static 'donations/images/facebook.png' %}" style="position:absolute; top:47%; left:38%" width="290" height="50"/>
-</a>
+<body>
+	<div class="container top_blank_space">
+		<div class="row text-center">
+			<div class="col">
+				<img class="img-responsive logo" src="{% static 'donations/images/logo.jpg' %}" /> 
+			</div>
+		</div>
+		<div class="row text-center">
+			<div class="col welcome">
+				Welcome to Impactful! Please log in with Facebook here: 
+			</div>
+		</div>
+		<div class="row text-center">
+			<div class="col">
+				<a href="{% url 'social:begin' 'facebook' %}">
+				    <img class="login_button" src="{% static 'donations/images/facebook.png' %}" /> 
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
 
-<!--
-<a href="{% url 'social:begin' 'twitter' %}">
-    <img src="{% static 'donations/images/twitter.png' %}" style="position:absolute; top:50%; left:38%" width="296" height="54"/>
-</a>
- 
-<a href="{% url 'social:begin' 'google-oauth2' %}">
-    <img src="{% static 'donations/images/google.png' %}" style="position:absolute; top:58%; left:38%" width="296" height="54"/>
-</a>
- 
--->
+
+		
+
+		<!--
+
+			style="position:absolute; top:19%; left:25%" logo
+			style="position:absolute; top:47%; left:38%" fb login button
+
+		<a href="{% url 'social:begin' 'twitter' %}">
+		    <img src="{% static 'donations/images/twitter.png' %}" style="position:absolute; top:50%; left:38%" width="296" height="54"/>
+		</a>
+		 
+		<a href="{% url 'social:begin' 'google-oauth2' %}">
+		    <img src="{% static 'donations/images/google.png' %}" style="position:absolute; top:58%; left:38%" width="296" height="54"/>
+		</a>
+		 
+		-->

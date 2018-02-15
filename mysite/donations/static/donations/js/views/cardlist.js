@@ -69,6 +69,6 @@ app.CardListView = Backbone.View.extend({
 
     returnCard: function() {
         return new_card;
-    }
+    },
 
 });
