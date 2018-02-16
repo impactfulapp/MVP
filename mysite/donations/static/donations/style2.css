@@ -5,7 +5,7 @@
 
 }
 
-#header .links {
+.links {
     padding-top: 2px;
     padding-right: 10px;
     padding-left: 10px;
@@ -15,7 +15,17 @@
     float:right;
 }
 
-#header .links:hover {
+.links:hover {
+    padding-top: 2px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #0b5394;
+    font-family: proxima-nova, sans-serif;
+    display:inline;
+    float:right;
+}
+
+.links:visited {
     padding-top: 2px;
     padding-right: 10px;
     padding-left: 10px;
@@ -69,6 +79,16 @@ body {
 
 .card_css:hover {
     background: lightgrey;
+}
+
+.delete_space {
+    padding-top: 1px;
+    padding-right: 4px;
+
+}
+
+.delete {
+    cursor: pointer;
 }
 
 .form-inputs {
@@ -213,12 +233,14 @@ body {
     border-width: 2px;*/
 }
 
-#footer {
+.footer {
     position: fixed;
     bottom:0;
+    left:0;
     height: 60px;
     background: white;
     padding-top: 10px;
     font-size: 24px;
     border-top: 2px solid black;
+    max-width: 100%;
 }

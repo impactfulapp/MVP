@@ -1,6 +1,6 @@
 var app = app || {};
 
-app.CardView = Backbone.View.extend({
+app.CardView = Backbone.View.extend({ 
     tagName: 'div',
     className: 'cardContainer',
     template: _.template( $( '#cardTemplate' ).html() ),
