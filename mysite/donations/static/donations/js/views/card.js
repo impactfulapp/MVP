@@ -1,6 +1,6 @@
 var app = app || {};
 
-app.CardView = Backbone.View.extend({ 
+app.CardView = Backbone.View.extend({
     tagName: 'div',
     className: 'cardContainer',
     template: _.template( $( '#cardTemplate' ).html() ),
@@ -16,11 +16,24 @@ app.CardView = Backbone.View.extend({
         'click .delete': 'deleteCard'
     },
 
+
     deleteCard: function() {
         //Delete model
+        console.log(this.model);
+        $.ajax( {
+          url: 'delete_donation/',
+          dataType: 'json',
+          data: {'id': this.model.attributes.donation_id}, //{'charity' : card_name, 'amount' : card_amount, 'date' : card_date},
+          success: function() {
+            console.log("deleted from backend");
+          }
+        });
+
         this.model.destroy();
 
         //Delete view
         this.remove();
+        //
+
     },
 });

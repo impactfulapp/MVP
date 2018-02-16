@@ -1,7 +1,7 @@
 <!doctype html>
 {% load static %}
 
-<html lang="en"> 
+<html lang="en">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-11 edit_space"></div>
             <div class="col text-right delete_space">
-                <span class="delete">X</span>
+                <span class="delete" id="{{donation.id}}">X</span>
             </div>
         </div>
         <div class="row card_text edit_space" id="{{donation.id}}">
@@ -88,7 +88,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content"> -->
                     <div class="modal-header">
-                        <h5 class="modal-title bold" id="addModalLabel">Donation Details</h5><!-- 
+                        <h5 class="modal-title bold" id="addModalLabel">Donation Details</h5><!--
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button> -->
@@ -144,7 +144,7 @@
     <script src="{% static 'donations/js/models/total.js'%}"></script>
     <script src="{% static 'donations/js/views/total.js'%}"></script>
     <script src="{% static 'donations/js/views/addmodal.js'%}"></script>
-    <script src="{% static 'donations/js/app.js'%}"></script> 
+    <script src="{% static 'donations/js/app.js'%}"></script>
     <title>Impactful MVP</title>
 
   </head>
@@ -302,7 +302,7 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
         -->
 
 
@@ -454,7 +454,7 @@
     <script type="text/template" id="modal-template">
       <div class="bbm-modal__topbar">
         <h3 class="bbm-modal__title">Backbone.Modal</h3>
-      </div> 
+      </div>
       <div class="bbm-modal__section">
         <div class="modal-header">
             <h5 class="modal-title bold" id="addModalLabel">Donation Details</h5>
@@ -553,12 +553,13 @@
               function init_donations(donations_list) {
                 var cards = [];
 
-                {% for donation in donation_list %} 
+                {% for donation in donation_list %}
                     var donation = '{{donation}}';
                     var charity = '{{donation.donation_charity}}';
                     var amount = '{{donation.donation_amount}}';
                     var date = '{{donation.donation_date}}';
-                    cards.push({ charity_name: charity, donation_amount: amount, donation_date: date } );    
+                    var id = '{{donation.id}}';
+                    cards.push({ donation_id: id, charity_name: charity, donation_amount: amount, donation_date: date } );
                 {% endfor %}
 
                 new app.CardListView( cards );

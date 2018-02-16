@@ -45,7 +45,7 @@ for item in database_details:
     try:
         charity_details[(str(item[0].encode('utf-8')))]['tagline'] = (str(item[3].encode('utf-8')))
     except Exception:
-        charity_details[(str(item[0].encode('utf-8')))]['tagline'] = 'Unknown'        
+        charity_details[(str(item[0].encode('utf-8')))]['tagline'] = 'Unknown'
 
 @login_required
 def index(request):
@@ -54,7 +54,7 @@ def index(request):
     total_donations = get_total_donated(request.user)
 
     #send info to html
-    context = {'donation_list': donation_list , 'total_donations': total_donations} 
+    context = {'donation_list': donation_list , 'total_donations': total_donations}
     return render(request, 'donations/index2.html', context)
 
 def add_donation(request):
@@ -66,7 +66,7 @@ def add_donation(request):
     print(date_to_add)
 
     new_charity = Charity(charity_name=charity_to_add)
-    
+
     # try:
     #     new_charity.charity_cause = charity_details[new_charity_name]['cause']
     #     new_charity.charity_rating = charity_details[new_charity_name]['rating']
@@ -82,7 +82,7 @@ def add_donation(request):
     new_donation.donation_donor = request.user
     new_donation.save()
 
-    return HttpResponse(200)
+    return JsonResponse({'donation_id':new_donation.id})
 
 def add_form(request, donation_id):
     charity_to_add = request.GET.get('charity', None)
@@ -127,17 +127,17 @@ def add_form(request, donation_id):
         # card_to_update.save()
 
         new_total = get_total_donated(request.user)
-        data = {'new_total': new_total, 'charity': donation_to_update.donation_charity.charity_name, 'amount': donation_to_update.donation_amount, 'date':donation_to_update.donation_date, 'cause': donation_to_update.donation_charity.charity_cause, 'tagline': donation_to_update.donation_charity.charity_tagline} 
+        data = {'new_total': new_total, 'charity': donation_to_update.donation_charity.charity_name, 'amount': donation_to_update.donation_amount, 'date':donation_to_update.donation_date, 'cause': donation_to_update.donation_charity.charity_cause, 'tagline': donation_to_update.donation_charity.charity_tagline}
         #serialize('json', card_to_update_queryset.first(), use_natural_foreign_keys=True, use_natural_primary_keys=True)
         #pprint.pprint(data)
         return JsonResponse(data)
     else:
-        #make new    
+        #make new
         new_charity_name = charity_to_add
         new_amount = amount_to_add
         new_date = date_to_add
         new_charity = Charity(charity_name=new_charity_name)
-        
+
         try:
             new_charity.charity_cause = charity_details[new_charity_name]['cause']
             new_charity.charity_rating = charity_details[new_charity_name]['rating']
@@ -154,10 +154,10 @@ def add_form(request, donation_id):
         # new_card = Card(card_charity=new_charity, card_donation=new_donation, card_date=new_date, card_user=request.user)
         # new_card.save()
         donation_list = Donation.objects.filter(donation_donor=request.user).order_by('-donation_date')
-        
+
         return HttpResponse(200)
         #return HttpResponseRedirect('/donations/')
-      
+
 
 def get_charities(request):
     letters = str(request.GET.get('term', None))
@@ -182,12 +182,11 @@ def get_total_donated(user):
 def detail(request, donation_id):
     return HttpResponse("You're looking at donation %s." % donation_id)
 
-def delete_update(request, donation_id):
-    Donation.objects.filter(id=donation_id).first().delete()
-    # donation_delete = get_object_or_404(Donation, pk=donation_id).delete()
-    total_donations = get_total_donated(request.user)
-    data = { 'total': total_donations }
-    return JsonResponse(data)
+def delete_donation(request):
+    donation_id_delete = request.GET.get('id', None)
+    Donation.objects.filter(id=donation_id_delete).first().delete()
+    print('deteled donation id thing')
+    return HttpResponse(200)
 
 #@login_required
 def login(request):
