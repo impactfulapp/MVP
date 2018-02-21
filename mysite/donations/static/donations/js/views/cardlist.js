@@ -8,8 +8,9 @@ app.CardListView = Backbone.View.extend({
         this.render();
         this.getTotalDonated();
         this.listenTo( this.collection, 'add', this.renderCard);
-        this.listenTo( this.collection, 'change', this.renderCard);
+        this.listenTo( this.collection, 'change:charity_name', this.changeCard);
         this.listenTo( this.collection, 'destroy', this.getTotalDonated);
+
 
     },
 
@@ -18,6 +19,11 @@ app.CardListView = Backbone.View.extend({
         this.collection.each(function( item ) {
             this.renderCard( item );
         }, this );
+    },
+
+    changeCard: function() {
+        this.render();
+        this.getTotalDonated();
     },
 
     // render a card by creating a CardView and appending the

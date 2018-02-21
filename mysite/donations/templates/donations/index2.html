@@ -21,7 +21,10 @@
     <script type="text/template" id="cardTemplate">
       <div class="container card_css">
         <div class="row">
-            <div class="col-11 edit_space"></div>
+            <div class="col-10 edit_space"></div>
+            <div class="col">
+              <button class="edit_button">Edit</button>
+            </div>
             <div class="col text-right delete_space">
                 <span class="delete" id="{{donation.id}}">X</span>
             </div>
@@ -58,6 +61,63 @@
                 <div class="row">
                     <div class="col detail donation_date">
                       <%-donation_date%>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col detail rating">
+                        <!-- Rating: {{donation.donation_charity.charity_rating}} out of 4 stars -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col detail rating">
+                        <!-- Rated By: Charity Navigator -->
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/template" id="editTemplate">
+      <div class="container card_css">
+        <div class="row">
+            <div class="col-11 edit_space"></div>
+            <div class="col text-right delete_space">
+                <span class="save_edits" id="{{donation.id}}">Save</span>
+            </div>
+        </div>
+        <div class="row card_text edit_space input_values" id="{{donation.id}}">
+            <div class="col-8">
+                <div class="row">
+                    <div class="col main_info charity_name">
+                        <label for="new_charity">Charity: </label><input id="charity_name" type="text" text="{{charity_name}}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col detail tagline">
+                      <!-- add tagline later -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col detail cause">
+                        <!-- add cause for late -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col detail">
+                        <!-- Impact: Coming Soon -->
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col main_info">
+                        <label for="new_amount">Amount: </label><input id="donation_amount" type="text" text="{{donation_amount}}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col main_info donation_date">
+                        <label for="new_date">Donation Date: </label><input id="donation_date" type="date" text="{{donation_date}}" />
                     </div>
                 </div>
                 <div class="row">
