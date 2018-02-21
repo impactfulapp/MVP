@@ -87,8 +87,15 @@ body {
 
 }
 
-.delete {
+.text_button {
     cursor: pointer;
+    /*border-width: 1px;
+    border-color: #0b5394;
+    border-style: solid;*/
+}
+
+.save_padding {
+    padding-top: 5px;
 }
 
 .form-inputs {
@@ -201,9 +208,16 @@ body {
     margin-bottom: 10px;
 }
 
+.add_card_css {
+    border-style: solid;
+    border-color: #0b5394;
+    border-width: 2px;
+    margin-bottom: 10px;
+}
+/*
 .card_text {
     padding-bottom: 20px;
-}
+}*/
 
 .add_card {
     font-size: 36px;
@@ -219,10 +233,6 @@ body {
 .detail {
     font-size: 12px;
     color: #6C9F47
-}
-
-.delete_button {
-    cursor: pointer;
 }
 
 .delete_col {

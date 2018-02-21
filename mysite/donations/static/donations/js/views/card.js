@@ -15,7 +15,8 @@ app.CardView = Backbone.View.extend({
     events: {
         'click .delete': 'deleteCard',
         'click .edit_button': 'edit',
-        'click .save_edits': 'save'
+        'click .save_edits': 'save',
+        'click .cancel_edit': 'cancel_edit',
         // 'dblclick .edit_space': 'edit',
         // 'keypress .edit': 'updateOnEnter',
         // 'blur .edit': 'close'
@@ -53,6 +54,12 @@ app.CardView = Backbone.View.extend({
 
     },
 
+    cancel_edit: function() {
+      console.log("entered cancel_edit");
+      this.template = _.template( $( '#cardTemplate' ).html() );
+      this.render();
+    },
+
     // Close the `"editing"` mode, saving changes to the todo.
     save: function() {
         console.log("entered save function");
@@ -69,12 +76,21 @@ app.CardView = Backbone.View.extend({
       console.log(formData);
       console.log(this.model.attributes.donation_id);
 
-
       //this.model.attributes.donation_id = this.id;
       this.model.attributes.charity_name = formData["charity_name"];
       this.model.attributes.donation_amount = formData["donation_amount"];
       this.model.attributes.donation_date = formData["donation_date"];
-      //this.model.save(formData);
+
+
+      // this.model.set(
+      //   {"charity_name": formData["charity_name"], 
+      //    "donation_amount": formData["donation_amount"],
+      //    "donation_date": formData["donation_date"]
+      //   });
+
+      //this.model.set('charity_name', formData["charity_name"]).save();
+      
+      //this.model.save();
       console.log(this.model.attributes);
 
       this.template = _.template( $( '#cardTemplate' ).html() );
@@ -82,7 +98,7 @@ app.CardView = Backbone.View.extend({
         
       dataJson = this.model.attributes;
 
-        //Update from backend
+        //Update backend
         $.ajax( {
           url: 'update_donation/',
           dataType: 'json',
