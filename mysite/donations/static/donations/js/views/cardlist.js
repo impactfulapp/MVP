@@ -8,9 +8,8 @@ app.CardListView = Backbone.View.extend({
         this.render();
         this.getTotalDonated();
         this.listenTo( this.collection, 'add', this.renderCard);
-        this.listenTo( this.collection, 'change', this.renderCard);
         this.listenTo( this.collection, 'destroy', this.getTotalDonated);
-
+        this.listenTo( this.collection, 'change:donation_amount', this.getTotalDonated);
     },
 
     // render card list by rendering each card in its collection
@@ -18,6 +17,11 @@ app.CardListView = Backbone.View.extend({
         this.collection.each(function( item ) {
             this.renderCard( item );
         }, this );
+    },
+
+    changeCard: function() {
+        this.render();
+        this.getTotalDonated();
     },
 
     // render a card by creating a CardView and appending the
@@ -31,16 +35,6 @@ app.CardListView = Backbone.View.extend({
 
     events: {
     'click #add':'addCard',
-    // 'click .delete': 'deleteCard'
-
-    },
-
-    _onModelEvent: function(event, model, collection, options) {
-      if (event === 'destroy')
-      {
-        this.remove(model, options);
-        this.getTotalDonated();
-      }
     },
 
     addCard: function( e ) {
@@ -74,7 +68,7 @@ app.CardListView = Backbone.View.extend({
         $.ajax( {
           url: 'add_donation/',
           dataType: 'json',
-          data: dataJson, //{'charity' : card_name, 'amount' : card_amount, 'date' : card_date},
+          data: dataJson, 
           success: function(data) {
             console.log(new_card.charity_name);
             console.log("added to backend");
@@ -83,24 +77,6 @@ app.CardListView = Backbone.View.extend({
           }
         });
     },
-    //
-    // deleteCard: function() {
-    //     //Delete model
-    //     var donation_id = this.id;
-    //     console.log(donation_id);
-    //     $.ajax( {
-    //       url: 'delete_donation/',
-    //       dataType: 'json',
-    //       data: {'id': donation_id}, //{'charity' : card_name, 'amount' : card_amount, 'date' : card_date},
-    //       success: function() {
-    //         console.log("deleted from backend");
-    //       }
-    //     });
-    //     this.model.destroy();
-    //     //Delete view
-    //     this.remove();
-    //     //
-    // },
 
     getTotalDonated: function() {
         console.log("entered getTotalDonated");

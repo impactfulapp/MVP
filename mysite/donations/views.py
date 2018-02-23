@@ -84,6 +84,26 @@ def add_donation(request):
 
     return JsonResponse({'donation_id':new_donation.id})
 
+def update_donation(request):
+    charity_to_add = request.GET.get('charity_name', None)
+    amount_to_add = request.GET.get('donation_amount', None)
+    date_to_add = request.GET.get('donation_date', None)
+    donation_id_to_update = request.GET.get('donation_id', None)
+
+    donation_to_update = Donation.objects.filter(id=donation_id_to_update).first()
+    charity_to_update = Charity.objects.filter(charity_name=charity_to_add).first()
+
+    if not charity_to_update:
+        charity_to_update = Charity(charity_name=charity_to_add)
+        charity_to_update.save()
+
+    donation_to_update.donation_charity = charity_to_update
+    donation_to_update.donation_amount = amount_to_add
+    donation_to_update.donation_date = date_to_add
+    donation_to_update.save()
+
+    return HttpResponse(200)
+
 def add_form(request, donation_id):
     charity_to_add = request.GET.get('charity', None)
     amount_to_add = request.GET.get('amount', None)

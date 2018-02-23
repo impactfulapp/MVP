@@ -31,6 +31,8 @@ urlpatterns = [
     url(r'^add_form/(?P<donation_id>\d+)/$', views.add_form, name='add_form'),
     # NEW add donations
     url(r'^add_donation/$', views.add_donation, name='add_donation'),
+    # NEW update donations
+    url(r'^update_donation/$', views.update_donation, name='update_donation'),
 
 
 
